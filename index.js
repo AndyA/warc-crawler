@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-const program = require('commander')
-const configRunner = require('./lib/runners')
-const cp = require('./lib/utils/colorPrinters')
+const program = require("commander");
+const configRunner = require("./lib/runners");
+const cp = require("./lib/utils/colorPrinters");
 
-process.on('unhandledRejection', function (reason, p) {
-  console.log('Unhandled Rejection:', reason.stack)
+process.on("unhandledRejection", function (reason, p) {
+  console.log("Unhandled Rejection:", reason.stack);
   // or next(reason);
-})
+});
 
 program
-  .version('1.0.0', '-v, --version')
-  .option('-c, --config <path-to-config.json>', 'Launch A Crawl From A Config')
+  .version("1.0.0", "-v, --version")
+  .option("-c, --config <path-to-config.json>", "Launch A Crawl From A Config");
 
-program.parse(process.argv)
+program.parse(process.argv);
 if (program.rawArgs.slice(2).length === 0) {
-  cp.green(program.helpInformation())
+  cp.green(program.helpInformation());
   // process.exit(1)
 } else {
   if (program.config != null) {
-    cp.crawlerOpt('Running Crawl From Config File', program.config)
-    configRunner(program.config)
+    cp.crawlerOpt("Running Crawl From Config File", program.config);
+    configRunner(program.config);
   } else {
-    cp.bred('Config argument (-c) was not supplied.')
+    cp.bred("Config argument (-c) was not supplied.");
   }
 }

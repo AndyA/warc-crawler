@@ -1,5 +1,5 @@
 {
-  "name": "squidwarc",
+  "name": "warc-crawler",
   "version": "1.2.0",
   "main": "index.js",
   "license": "Apache-2.0",
@@ -62,5 +62,21 @@
     "globals": [
       "$x"
     ]
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": false,
+    "quoteProps": "consistent",
+    "jsxSingleQuote": false,
+    "trailingComma": "none",
+    "bracketSpacing": true,
+    "arrowParens": "avoid",
+    "requirePragma": false,
+    "insertPragma": false,
+    "proseWrap": "preserve",
+    "htmlWhitespaceSensitivity": "css",
+    "endOfLine": "lf"
   }
 }
