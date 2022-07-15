@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import program from "commander";
+import program from 'commander';
 
-import configRunner from "./lib/runners";
-import cp from "./lib/utils/colorPrinters";
+import configRunner from './lib/runners';
+import cp from './lib/utils/colorPrinters';
 
 process.on("unhandledRejection", function (reason, p) {
   console.log("Unhandled Rejection:", reason.stack);

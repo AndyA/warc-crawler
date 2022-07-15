@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "standard | snazzy",
     "lint-fix": "standard --fix",
-    "format": "prettier -w './**/*.ts'",
+    "format": "prettier-standard 'lib/**/*.js'",
     "docs": "esdoc",
     "publish-docs": "gh-pages -d docs",
     "build": "tsc"
