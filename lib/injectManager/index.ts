@@ -15,13 +15,12 @@
  */
 
 import {
-  noNaughtJs,
-  scrollPage,
-  scrollOnLoad,
-  initCollectLinks,
   collect,
-  outLinks
-} from "./pageInjects";
+  outLinks,
+  initCollectLinks
+} from "./pageInjects/collectLinks";
+import { scrollPage, scrollOnLoad } from "./pageInjects/scroll";
+import noNaughtJs from "./pageInjects/noNaughtyJS";
 
 /**
  * @desc Manages the JavaScript that is injected into the page
