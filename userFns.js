@@ -3,7 +3,7 @@
  * @param {Page} page
  * @return {Promise<void>}
  */
-module.exports = async function (page) {
+export default async function (page) {
   // scrolls the page until the page cannot be scrolled
   // some more or we have scrolled 25 times and fetches all the srcset values
   await page.evaluate(async function () {

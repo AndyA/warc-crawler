@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-const program = require("commander");
-const configRunner = require("./lib/runners");
-const cp = require("./lib/utils/colorPrinters");
+import program from 'commander';
+
+import configRunner from './lib/runners';
+import cp from './lib/utils/colorPrinters';
 
 process.on("unhandledRejection", function (reason, p) {
   console.log("Unhandled Rejection:", reason.stack);
