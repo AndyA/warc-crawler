@@ -8,15 +8,15 @@
     "lint-fix": "standard --fix",
     "format": "prettier-standard 'lib/**/*.js'",
     "docs": "esdoc",
-    "publish-docs": "gh-pages -d docs"
+    "publish-docs": "gh-pages -d docs",
+    "build": "tsc"
   },
   "dependencies": {
-    "5to6-codemod": "^1.8.0",
     "bluebird": "^3.5.3",
     "chalk": "^2.4.2",
     "chrome-remote-interface": "^0.27.0",
     "class-autobind": "^0.1.4",
-    "commander": "^2.19.0",
+    "commander": "^9.4.0",
     "eventemitter3": "^3.1.0",
     "filenamify-url": "^1.0.0",
     "fs-extra": "^7.0.1",
@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.4",
+    "@types/node": "^18.0.4",
     "benchmark": "^2.1.4",
     "esdoc": "^1.1.0",
     "esdoc-custom-theme": "^1.4.2",
@@ -51,7 +52,8 @@
     "microtime": "^3.0.0",
     "prettier-standard": "^9.1.1",
     "snazzy": "^8.0.0",
-    "standard": "^12.0.1"
+    "standard": "^12.0.1",
+    "typescript": "^4.7.4"
   },
   "standard": {
     "ignore": [
