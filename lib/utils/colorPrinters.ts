@@ -31,6 +31,8 @@ pe.appendStyle({
  * @desc Utility class for displaying colored text in console
  */
 class ColorPrinters {
+static chalk = chalk;
+
   /**
    * @desc Yellow colored console.log
    * @param args
@@ -125,11 +127,6 @@ class ColorPrinters {
     console.log(chalk.red(JSON.stringify(config, null, "\t")));
   }
 }
-
-/**
- * @type {chalk}
- */
-ColorPrinters.chalk = chalk;
 
 /**
  * @type {ColorPrinters}

@@ -16,6 +16,7 @@
 
 import Config from '../config';
 
+// @ts-expect-error TS(2614): Module '"../config/loader"' has no exported member... Remove this comment to see the full error message
 import { Loader } from '../config/loader';
 import { makeRunnable } from '../utils/promises';
 import chromeRunner from './chromeRunner';

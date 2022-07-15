@@ -87,10 +87,12 @@ export const scrollPage = async function scrollPage() {
         }
         clearInterval(scrollerInterval);
         scrollerInterval = undefined;
+        // @ts-expect-error TS(2794): Expected 1 arguments, but got 0. Did you forget to... Remove this comment to see the full error message
         resolve();
       } else if (scrollPos >= maxScroll) {
         clearInterval(scrollerInterval);
         scrollerInterval = undefined;
+        // @ts-expect-error TS(2794): Expected 1 arguments, but got 0. Did you forget to... Remove this comment to see the full error message
         resolve();
       }
     }, 200);

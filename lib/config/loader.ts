@@ -19,6 +19,7 @@ import { inspect } from 'util';
 import fs from 'fs-extra';
 import yaml from 'js-yaml';
 import untildify from 'untildify';
+// @ts-expect-error TS(2614): Module '"../defaults"' has no exported member 'def... Remove this comment to see the full error message
 import { defaultOpts } from '../defaults';
 import cp from '../utils/colorPrinters';
 import FH from '../frontier/helper';

@@ -44,6 +44,15 @@ export const initCollectLinks = function initCollectLinks() {
    * @desc Performs the outlink collection for a frame
    */
   class Collector {
+    dot: any;
+    good: any;
+    ignore: any;
+    ilen: any;
+    links: any;
+    linksSeen: any;
+    outlinks: any;
+    urlParer: any;
+    urlParts: any;
     constructor() {
       this.ignore = [
         "#",
@@ -157,6 +166,15 @@ export const initCollectLinks = function initCollectLinks() {
   }
 
   class TopHandler {
+    childFrames: any;
+    childSources: any;
+    collectorRef: any;
+    countingChildren: any;
+    done: any;
+    found: any;
+    messages: any;
+    to: any;
+    toStop: any;
     constructor(collectorRef, messages) {
       /**
        * @type {{outlinks: string, links: Array<string>, totalChildren: number}}
@@ -262,11 +280,7 @@ export const initCollectLinks = function initCollectLinks() {
       configurable: false,
       value: new TopHandler(Collector, m)
     });
-    window.addEventListener(
-      "message",
-      window.$$$$Squidwarc$$Collector$$$$.helloFromFrame,
-      false
-    );
+    window.addEventListener("message", (window as any).$$Squidwarc$Collector$$.helloFromFrame, false);
   } else {
     const mhc = function messageHandlerChild(e) {
       if (e.data && e.data.type === m.outlinkcollect) {
@@ -294,9 +308,9 @@ export const initCollectLinks = function initCollectLinks() {
  * @return {Promise<{outlinks: string, links: Array<string>, location: string}>}
  */
 export const collect = function collect() {
-  const prom = window.$$$$Squidwarc$$Collector$$$$.prWhenDone();
+  const prom = (window as any).$$Squidwarc$Collector$$.prWhenDone();
   // defer execution of go
-  Promise.resolve().then(() => window.$$$$Squidwarc$$Collector$$$$.go());
+Promise.resolve().then(() => (window as any).$$Squidwarc$Collector$$.go());
   return prom;
 };
 

@@ -23,16 +23,20 @@
 export default function noNaughtyJS() {
   Object.defineProperty(window, "onbeforeunload", {
     configurable: false,
+    // @ts-expect-error TS(2345): Argument of type '{ configurable: false; writeable... Remove this comment to see the full error message
     writeable: false,
     value: function () {}
   });
   Object.defineProperty(window, "onunload", {
     configurable: false,
+    // @ts-expect-error TS(2345): Argument of type '{ configurable: false; writeable... Remove this comment to see the full error message
     writeable: false,
     value: function () {}
   });
   window.alert = function () {};
+  // @ts-expect-error TS(2322): Type '() => void' is not assignable to type '((mes... Remove this comment to see the full error message
   window.confirm = function () {};
+  // @ts-expect-error TS(2322): Type '() => void' is not assignable to type '((mes... Remove this comment to see the full error message
   window.prompt = function () {};
 
   /*
@@ -43,68 +47,69 @@ export default function noNaughtyJS() {
 
   /* eslint-disable */
 
-  if (!window.chrome) {
+  if (!(window as any).chrome) {
     const installer = { install() {} };
-    window.chrome = {
-      app: { isInstalled: false },
-      webstore: {
+    (window as any).chrome = {
+    app: { isInstalled: false },
+    webstore: {
         onInstallStageChanged: {},
         onDownloadProgress: {},
         install(url, onSuccess, onFailure) {
-          installer.install(url, onSuccess, onFailure);
+            // @ts-expect-error TS(2554): Expected 0 arguments, but got 3.
+            installer.install(url, onSuccess, onFailure);
         }
-      },
-      csi() {},
-      loadTimes() {}
-    };
+    },
+    csi() { },
+    loadTimes() { }
+};
   }
 
-  if (!window.chrome.runtime) {
-    window.chrome.runtime = {
-      PlatformOs: {
+  if (!(window as any).chrome.runtime) {
+    (window as any).chrome.runtime = {
+    PlatformOs: {
         MAC: "mac",
         WIN: "win",
         ANDROID: "android",
         CROS: "cros",
         LINUX: "linux",
         OPENBSD: "openbsd"
-      },
-      PlatformArch: {
+    },
+    PlatformArch: {
         ARM: "arm",
         X86_32: "x86-32",
         X86_64: "x86-64",
         MIPS: "mips",
         MIPS64: "mips64"
-      },
-      PlatformNaclArch: {
+    },
+    PlatformNaclArch: {
         ARM: "arm",
         X86_32: "x86-32",
         X86_64: "x86-64",
         MIPS: "mips",
         MIPS64: "mips64"
-      },
-      RequestUpdateCheckStatus: {
+    },
+    RequestUpdateCheckStatus: {
         THROTTLED: "throttled",
         NO_UPDATE: "no_update",
         UPDATE_AVAILABLE: "update_available"
-      },
-      OnInstalledReason: {
+    },
+    OnInstalledReason: {
         INSTALL: "install",
         UPDATE: "update",
         CHROME_UPDATE: "chrome_update",
         SHARED_MODULE_UPDATE: "shared_module_update"
-      },
-      OnRestartRequiredReason: {
+    },
+    OnRestartRequiredReason: {
         APP_UPDATE: "app_update",
         OS_UPDATE: "os_update",
         PERIODIC: "periodic"
-      },
-      connect: function () {}.bind(function () {}),
-      sendMessage: function () {}.bind(function () {})
-    };
+    },
+    connect: function () { }.bind(function () { }),
+    sendMessage: function () { }.bind(function () { })
+};
   }
 
-  if (HTMLIFrameElement.prototype.__lookupGetter__("contentWindow") == null) {
+  if ((HTMLIFrameElement.prototype as any).__lookupGetter__("contentWindow") == null) {
     Object.defineProperty(HTMLIFrameElement.prototype, "contentWindow", {
       get: function () {
         return window;

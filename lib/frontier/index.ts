@@ -16,12 +16,16 @@
 import FH from './helper';
 
 import SeedTracker from './seedTracker';
+// @ts-expect-error TS(2614): Module '"./modes"' has no exported member 'cmodePO... Remove this comment to see the full error message
 import { cmodePO, cmodSite } from './modes';
 
 /**
  * @desc In memory implementation of a frontier
  */
 class Frontier {
+  current: any;
+  queue: any;
+  trackers: any;
   /**
    * @desc Create a new frontier object
    */

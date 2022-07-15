@@ -24,6 +24,17 @@ import EventEmitter from 'eventemitter3';
  * @extends {EventEmitter}
  */
 class NavigationMan extends EventEmitter {
+  _curl: any;
+  _doneTimers: any;
+  _globalWaitTimer: any;
+  _idleInflight: any;
+  _idleTime: any;
+  _idleTimer: any;
+  _navTimeout: any;
+  _navTimeoutTime: any;
+  _parentEmitter: any;
+  _requestIds: any;
+  _timeout: any;
   /**
    *
    * @param {CrawlControl} [options = {}]
@@ -33,32 +44,29 @@ class NavigationMan extends EventEmitter {
     super();
 
     /**
-     * @desc Maximum amount of time, in milliseconds, before generating a WARC and moving to the next URL
-     * @type {number}
-     * @private
-     */
-    this._timeout = options.globalWait || 60000; // could be 30 seconds
-
-    /**
-     * @desc Amount of time, in milliseconds, that should elapse when there are only {@link _idleInflight} requests for network idle to be determined
-     * @type {number}
-     * @private
-     */
-    this._idleTime = options.inflightIdle || 1000; // could be 1500 (1.5 seconds)
-
-    /**
-     * @desc The number of inflight requests (requests with no response) that should exist before starting the inflightIdle timer
-     * @type {number}
-     * @private
-     */
-    this._idleInflight = options.numInflight || 2; // could be 4
-
-    /**
-     * @desc How long should we wait before for navigation to occur before emitting navigation-timedout event
-     * @type {number}
-     * @private
-     */
-    this._navTimeoutTime = options.navWait || 8000;
+ * @desc Maximum amount of time, in milliseconds, before generating a WARC and moving to the next URL
+ * @type {number}
+ * @private
+ */
+this._timeout = (options as any).globalWait || 60000; // could be 30 seconds
+ /**
+ * @desc Amount of time, in milliseconds, that should elapse when there are only {@link _idleInflight} requests for network idle to be determined
+ * @type {number}
+ * @private
+ */
+this._idleTime = (options as any).inflightIdle || 1000; // could be 1500 (1.5 seconds)
+ /**
+ * @desc The number of inflight requests (requests with no response) that should exist before starting the inflightIdle timer
+ * @type {number}
+ * @private
+ */
+this._idleInflight = (options as any).numInflight || 2; // could be 4
+ /**
+ * @desc How long should we wait before for navigation to occur before emitting navigation-timedout event
+ * @type {number}
+ * @private
+ */
+this._navTimeoutTime = (options as any).navWait || 8000;
 
     /**
      * @desc Set of the HTTP requests ids, used for tracking network-idle
@@ -207,6 +215,7 @@ class NavigationMan extends EventEmitter {
    */
   _globalNetworkTimeout() {
     this._clearTimers();
+    // @ts-expect-error TS(2554): Expected 2 arguments, but got 1.
     this._emitEvent("network-idle");
   }
 
@@ -216,6 +225,7 @@ class NavigationMan extends EventEmitter {
    */
   _networkIdled() {
     this._clearTimers();
+    // @ts-expect-error TS(2554): Expected 2 arguments, but got 1.
     this._emitEvent("network-idle");
   }
 

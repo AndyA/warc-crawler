@@ -20,22 +20,22 @@ import configRunner from './lib/runners';
 import cp from './lib/utils/colorPrinters';
 
 process.on("unhandledRejection", function (reason, p) {
-  console.log("Unhandled Rejection:", reason.stack);
+  console.log("Unhandled Rejection:", (reason as any).stack);
   // or next(reason);
 });
 
-program
-  .version("1.0.0", "-v, --version")
-  .option("-c, --config <path-to-config.json>", "Launch A Crawl From A Config");
+(program as any).version("1.0.0", "-v, --version")
+    .option("-c, --config <path-to-config.json>", "Launch A Crawl From A Config");
 
-program.parse(process.argv);
-if (program.rawArgs.slice(2).length === 0) {
-  cp.green(program.helpInformation());
+(program as any).parse(process.argv);
+if ((program as any).rawArgs.slice(2).length === 0) {
+  cp.green((program as any).helpInformation());
   // process.exit(1)
 } else {
-  if (program.config != null) {
-    cp.crawlerOpt("Running Crawl From Config File", program.config);
-    configRunner(program.config);
+  if ((program as any).config != null) {
+    cp.crawlerOpt("Running Crawl From Config File", (program as any).config);
+    // @ts-expect-error TS(2554): Expected 0 arguments, but got 1.
+    configRunner((program as any).config);
   } else {
     cp.bred("Config argument (-c) was not supplied.");
   }

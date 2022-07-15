@@ -58,9 +58,7 @@ function which(executable) {
  */
 function chromeDesktops(desktopPath) {
   // eslint-disable-next-line
-  return exec(
-    `ls ${desktopPath} | grep -E "\/.*\/(google|chrome|chromium)-.*"`
-  ).then(results => results.split(nlre));
+return exec(`ls ${desktopPath} | grep -E "\/.*\/(google|chrome|chromium)-.*"`).then(results => (results as any).split(nlre));
 }
 
 /**
@@ -223,7 +221,7 @@ class ChromeFinder {
       `${LSREGISTER} -dump | grep -i 'google chrome\\( canary\\)\\?.app$' | awk '{$1="" print $0}'`
     );
     let i = 0;
-    let split = commandResults.split(nlre);
+    let split = (commandResults as any).split(nlre);
     let len = split.length;
     let execPath;
     let inst;

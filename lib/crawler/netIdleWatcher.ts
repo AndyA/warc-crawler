@@ -25,6 +25,15 @@ import H from './helper';
  * @extends {EventEmitter}
  */
 class NetIdleWatcher extends EventEmitter {
+  _doneTimers: any;
+  _globalWaitTimer: any;
+  _idleInflight: any;
+  _idleTime: any;
+  _idleTimer: any;
+  _pageListenrs: any;
+  _requestIds: any;
+  _timeout: any;
+  page: any;
   /**
    * @param {Page} page - Puppeteer page object for the page being crawled
    * @param {?NetIdleOptions} [options = {}] - Optional options to control fine tune network idle determination
@@ -33,25 +42,25 @@ class NetIdleWatcher extends EventEmitter {
     super();
 
     /**
-     * @desc Maximum amount of time a crawler going to visit a page
-     * @type {number}
-     * @private
-     */
-    this._timeout = options.globalWait || 40000;
+ * @desc Maximum amount of time a crawler going to visit a page
+ * @type {number}
+ * @private
+ */
+this._timeout = (options as any).globalWait || 40000;
 
     /**
-     * @desc The amount of time no new HTTP requests should be made before emitting the network-idle event
-     * @type {number}
-     * @private
-     */
-    this._idleTime = options.inflightIdle || 1500;
+ * @desc The amount of time no new HTTP requests should be made before emitting the network-idle event
+ * @type {number}
+ * @private
+ */
+this._idleTime = (options as any).inflightIdle || 1500;
 
     /**
-     * @desc The number of in-flight requests there should be before starting the network-idle timer
-     * @type {number}
-     * @private
-     */
-    this._idleInflight = options.numInflight || 2;
+ * @desc The number of in-flight requests there should be before starting the network-idle timer
+ * @type {number}
+ * @private
+ */
+this._idleInflight = (options as any).numInflight || 2;
 
     /**
      * @desc Set of the HTTP requests ids, used for tracking network-idle

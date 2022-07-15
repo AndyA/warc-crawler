@@ -25,6 +25,8 @@ import WARCNaming from '../utils/warcNaming';
 
 /// cause I removed squidwarc needs from node-warc
 class NetworkMonitor extends RequestHandler {
+  _capture: any;
+  navMan: any;
   /**
    * @param {Object} network
    * @param {NavigationMan} navMan
@@ -65,6 +67,17 @@ class NetworkMonitor extends RequestHandler {
  * @extends {EventEmitter}
  */
 class ChromeCrawler extends EventEmitter {
+  _autoClose: any;
+  _client: any;
+  _currentUrl: any;
+  _navMan: any;
+  _pages: any;
+  _ua: any;
+  _warcGenerator: any;
+  _warcNamingFN: any;
+  options: any;
+  requestCapturer: any;
+  requestMonitor: any;
   /**
    * @desc Create a new ChromeCrawler instance. For a description of the expected options see the
    * JSDoc CrawlConfig typedef {@link CrawlConfig}
@@ -298,13 +311,13 @@ class ChromeCrawler extends EventEmitter {
       }
     };
     if (!this.options.warc.appending) {
-      opts.pages = this._pages.shift();
+      (opts as any).pages = this._pages.shift();
     }
     const defaultWinfo = { "http-header-user-agent": this._ua };
     if (this.options.warc.winfo) {
-      opts.winfo = Object.assign(defaultWinfo, this.options.warc.winfo);
+      (opts as any).winfo = Object.assign(defaultWinfo, this.options.warc.winfo);
     } else {
-      opts.winfo = defaultWinfo;
+      (opts as any).winfo = defaultWinfo;
     }
     this.requestCapturer.stopCapturing();
     return this._warcGenerator.generateWARC(

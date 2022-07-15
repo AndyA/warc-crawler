@@ -7,7 +7,7 @@ export default async function (page) {
   // scrolls the page until the page cannot be scrolled
   // some more or we have scrolled 25 times and fetches all the srcset values
   await page.evaluate(async function () {
-    window.$SquidwarcSeen = window.$SquidwarcSeen || new Set();
+    (window as any).$SquidwarcSeen = (window as any).$SquidwarcSeen || new Set();
     const noop = () => {};
     const srcsetSplit = /\s*(\S*\s+[\d.]+[wx]),|(?:\s*,(?:\s+|(?=https?:)))/;
     let scrolled = 0;
@@ -17,28 +17,28 @@ export default async function (page) {
       );
       const fetches = [];
       for (let i = 0; i < ss.length; i++) {
-        if (ss[i].dataset.srcset || ss[i].srcset) {
+        if ((ss[i] as any).dataset.srcset || (ss[i] as any).srcset) {
           let srcsets = [];
-          if (ss[i].srcset) {
-            srcsets = srcsets.concat(ss[i].srcset.split(srcsetSplit));
+          if ((ss[i] as any).srcset) {
+            srcsets = srcsets.concat((ss[i] as any).srcset.split(srcsetSplit));
           }
-          if (ss[i].dataset.srcset) {
-            srcsets = srcsets.concat(ss[i].dataset.srcset.split(srcsetSplit));
+          if ((ss[i] as any).dataset.srcset) {
+            srcsets = srcsets.concat((ss[i] as any).dataset.srcset.split(srcsetSplit));
           }
           for (let j = 0; j < srcsets.length; j++) {
             if (srcsets[j]) {
               const url = srcsets[j].trim().split(" ")[0];
-              if (!window.$SquidwarcSeen.has(url)) {
-                window.$SquidwarcSeen.add(url);
+              if (!(window as any).$SquidwarcSeen.has(url)) {
+                (window as any).$SquidwarcSeen.add(url);
                 fetches.push(fetch(url).catch(noop));
               }
             }
           }
         }
-        if (ss[i].dataset.src) {
-          if (!window.$SquidwarcSeen.has(ss[i].dataset.src)) {
-            window.$SquidwarcSeen.add(ss[i].dataset.src);
-            fetches.push(fetch(ss[i].dataset.src).catch(noop));
+        if ((ss[i] as any).dataset.src) {
+          if (!(window as any).$SquidwarcSeen.has((ss[i] as any).dataset.src)) {
+            (window as any).$SquidwarcSeen.add((ss[i] as any).dataset.src);
+            fetches.push(fetch((ss[i] as any).dataset.src).catch(noop));
           }
         }
       }

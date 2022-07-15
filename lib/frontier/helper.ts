@@ -17,6 +17,7 @@ import Path from 'path';
 
 import parseDomain from 'parse-domain';
 import bigExtLookup from '../utils/bigExtLookup';
+// @ts-expect-error TS(2614): Module '"./modes"' has no exported member 'cmodePO... Remove this comment to see the full error message
 import { cmodePO, cmodePAL, cmodePSD, cmodSite } from './modes';
 
 /**

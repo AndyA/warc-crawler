@@ -31,14 +31,14 @@ import { delay } from '../utils/promises';
  * @return {?ChromeOptions}
  */
 function ensureOptions(options = {}) {
-  if (options.port == null) {
-    options.port = 9222;
+  if ((options as any).port == null) {
+    (options as any).port = 9222;
   }
-  if (options.host == null) {
-    options.host = "localhost";
+  if ((options as any).host == null) {
+    (options as any).host = "localhost";
   }
-  if (options.local == null || !options.local) {
-    options.local = false;
+  if ((options as any).local == null || !(options as any).local) {
+    (options as any).local = false;
   }
   return options;
 }
@@ -164,23 +164,23 @@ class ChromeLauncher {
    */
   static async launchNoConnect(options = {}) {
     options = ensureOptions(options);
-    if (options.executable == null) {
-      options.executable = await ChromeFinder.findChrome();
+    if ((options as any).executable == null) {
+      (options as any).executable = await ChromeFinder.findChrome();
     }
     let userDataDir = null;
-    if (!options.executable) {
+    if (!(options as any).executable) {
       userDataDir = await fs.mkdtemp(CHROME_PROFILE_PATH);
     } else {
-      userDataDir = options.userDataDir;
+      userDataDir = (options as any).userDataDir;
     }
 
     const chromeArguments = chromeArgs(options, userDataDir);
     let killed = false;
-    const chromeProcess = cp.spawn(options.executable, chromeArguments, {
-      stdio: ["ignore", "ignore", "pipe"],
-      env: process.env,
-      detached: process.platform !== "win32"
-    });
+    const chromeProcess = cp.spawn((options as any).executable, chromeArguments, {
+    stdio: ["ignore", "ignore", "pipe"],
+    env: process.env,
+    detached: process.platform !== "win32"
+});
 
     process.on("exit", killChrome);
     chromeProcess.once("exit", maybeRemoveUDataDir);
@@ -202,7 +202,7 @@ class ChromeLauncher {
     }
 
     function maybeRemoveUDataDir() {
-      if (!options.userDataDir) {
+      if (!(options as any).userDataDir) {
         try {
           fs.removeSync(userDataDir);
         } catch (e) {}
