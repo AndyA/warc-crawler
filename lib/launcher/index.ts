@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-import isEmpty from 'lodash/isEmpty';
+import ChromeLauncher from "./chrome";
+
+import ChromeFinder from "./chromeFinder";
+import defaultArgs from "./defaultArgs";
+import puppeteer from "./puppeteer";
 
 /**
- * @desc Test to see if a ``plain object`` is empty
- * @param {Object?} object
- * @return {boolean}
+ * @type {{ChromeFinder: ChromeFinder, ChromeLauncher: ChromeLauncher, defaultArgs: string[], puppeteer: launch}}
  */
-export default function isEmptyPlainObject(object) {
-  if (object === null || object === undefined) {
-    return true;
-  }
-  return isEmpty(object);
+export default {
+  ChromeFinder,
+  ChromeLauncher,
+  defaultArgs,
+  puppeteer
 };

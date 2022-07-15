@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import os from 'os';
+import os from "os";
 
-import puppeteer from 'puppeteer';
-import DEFAULT_ARGS from './defaultArgs';
-import CRI from 'chrome-remote-interface';
+import puppeteer from "puppeteer";
+import DEFAULT_ARGS from "./defaultArgs";
+import CRI from "chrome-remote-interface";
 
 /**
  * @desc Attempts to find an accible target (page) to connect to in an already launched chrome instance
@@ -85,4 +85,4 @@ export default async function launch(options) {
     browserWSEndpoint,
     defaultViewport: { width: 1920, height: 1080 }
   });
-};
+}

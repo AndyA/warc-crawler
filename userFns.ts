@@ -55,4 +55,4 @@ export default async function (page) {
       if (!canScrollMore) break;
     }
   });
-};
+}

@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import os from 'os';
+import os from "os";
 
-import path from 'path';
-import cp from 'child_process';
-import fs from 'fs-extra';
-import CRI from 'chrome-remote-interface';
-import readline from 'readline';
-import DEFAULT_ARGS from './defaultArgs';
-import ChromeFinder from './chromeFinder';
-import H from '../crawler/helper';
-import { delay } from '../utils/promises';
+import path from "path";
+import cp from "child_process";
+import fs from "fs-extra";
+import CRI from "chrome-remote-interface";
+import readline from "readline";
+import DEFAULT_ARGS from "./defaultArgs";
+import ChromeFinder from "./chromeFinder";
+import H from "../crawler/helper";
+import { delay } from "../utils/promises";
 
 /**
  * @param {ChromeOptions} options

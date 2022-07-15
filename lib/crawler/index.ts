@@ -13,29 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import ChromeCrawler from "./chrome";
 
-import Config from '../config';
-
-import { Loader } from '../config/loader';
-import { makeRunnable } from '../utils/promises';
-import chromeRunner from './chromeRunner';
-import puppeteerRunner from './puppeteerRunner';
+import PuppeteerCrawler from "./puppeteer";
 
 /**
- * @desc Launch a configured crawl
- * @param {string} configPath - Path to the crawls config file
- * @return {Promise<void>}
+ * @desc Receive the crawl config requested crawler
+ * @param {CrawlConfig} config - The crawl config
+ * @returns {ChromeCrawler | PuppeteerCrawler}
  */
-async function runner(configPath) {
-  const config = await Loader.load(configPath);
-  if (config.chrome.use === "chrome") {
-    await chromeRunner(config);
-  } else {
-    await puppeteerRunner(config);
+function getCrawler(config) {
+  if (config.chrome.use === "puppeteer") {
+    return new PuppeteerCrawler(config);
   }
+  return ChromeCrawler.withAutoClose(config);
 }
 
 /**
- * @type {function(string): void}
+ * @type {{ChromeCrawler: ChromeCrawler, PuppeteerCrawler: PuppeteerCrawler, getCrawler: getCrawler}}
  */
-export default makeRunnable(runner);
+export default {
+  ChromeCrawler,
+  PuppeteerCrawler,
+  getCrawler
+};

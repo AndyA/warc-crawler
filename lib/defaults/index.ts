@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import pkg from '../../package.json';
+import pkg from "../../package.json";
 
 /**
  * @type {{UA: string, defaultOpts: {connect: Object, timeouts: {navigationTimeout: number, waitAfterLoad: number}, versionInfo: VersionInfo, warc: WARCOptions, deviceMetrics: {width: number, height: number, screenWidth: number, screenHeight: number, deviceScaleFactor: number, mobile: boolean, fitWindow: boolean}, crawlControl: CrawlControl}}}

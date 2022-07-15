@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import cp from '../utils/colorPrinters';
+import cp from "../utils/colorPrinters";
 
-import PuppeteerCrawler from '../crawler/puppeteer';
-import Frontier from '../frontier';
-import WARCNaming from '../utils/warcNaming';
+import PuppeteerCrawler from "../crawler/puppeteer";
+import Frontier from "../frontier";
+import WARCNaming from "../utils/warcNaming";
 
 /**
  * @desc Launches a crawl using the supplied configuration file path

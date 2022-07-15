@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import EventEmitter from 'eventemitter3';
+import EventEmitter from "eventemitter3";
 
-import { Events } from 'puppeteer/lib/Events';
-import { TimeoutError } from 'puppeteer/lib/Errors';
-import normalizeURL from 'normalize-url';
-import autobind from 'class-autobind';
-import PuppeteerCDPRequestCapturer from 'node-warc/lib/requestCapturers/puppeteerCDP';
-import PuppeteerCDPWARCGenerator from 'node-warc/lib/writers/puppeteerCDP';
-import InjectManager from '../injectManager';
-import launch from '../launcher/puppeteer';
-import NetIdle from './netIdleWatcher';
-import cp from '../utils/colorPrinters';
-import WARCNaming from '../utils/warcNaming';
+import { Events } from "puppeteer/lib/Events";
+import { TimeoutError } from "puppeteer/lib/Errors";
+import normalizeURL from "normalize-url";
+import autobind from "class-autobind";
+import PuppeteerCDPRequestCapturer from "node-warc/lib/requestCapturers/puppeteerCDP";
+import PuppeteerCDPWARCGenerator from "node-warc/lib/writers/puppeteerCDP";
+import InjectManager from "../injectManager";
+import launch from "../launcher/puppeteer";
+import NetIdle from "./netIdleWatcher";
+import cp from "../utils/colorPrinters";
+import WARCNaming from "../utils/warcNaming";
 
 /**
  * @desc Crawler based on puppeteer

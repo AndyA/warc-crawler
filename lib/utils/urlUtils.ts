@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import partialRight from 'lodash/partialRight';
+import partialRight from "lodash/partialRight";
 
-import _normalizeURL from 'normalize-url';
+import _normalizeURL from "normalize-url";
 
 /**
  * @desc the default URL normalization function

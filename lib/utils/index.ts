@@ -13,27 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import ChromeCrawler from './chrome';
 
-import PuppeteerCrawler from './puppeteer';
-
-/**
- * @desc Receive the crawl config requested crawler
- * @param {CrawlConfig} config - The crawl config
- * @returns {ChromeCrawler | PuppeteerCrawler}
- */
-function getCrawler(config) {
-  if (config.chrome.use === "puppeteer") {
-    return new PuppeteerCrawler(config);
-  }
-  return ChromeCrawler.withAutoClose(config);
-}
+import isEmptyPlainObject from "./isEmptyPlainObject";
 
 /**
- * @type {{ChromeCrawler: ChromeCrawler, PuppeteerCrawler: PuppeteerCrawler, getCrawler: getCrawler}}
+ * @type {{isEmptyPlainObject: isEmptyPlainObject}}
  */
 export default {
-  ChromeCrawler,
-  PuppeteerCrawler,
-  getCrawler
+  isEmptyPlainObject
 };

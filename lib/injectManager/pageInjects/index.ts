@@ -14,9 +14,19 @@
  * limitations under the License.
  */
 
+import noNaughtJs from "./noNaughtyJS";
+
+import { scrollPage, scrollOnLoad } from "./scroll";
+import { initCollectLinks, collect, outLinks } from "./collectLinks";
+
 /**
- * @type {{isEmptyPlainObject: isEmptyPlainObject}}
+ * @type {{noNaughtJs: function(): void, scrollPage: scrollPage, scrollOnLoad: scrollOnLoad, initCollectLinks: initCollectLinks, collect: collect, outLinks: outLinks}}
  */
 export default {
-  isEmptyPlainObject: require("./isEmptyPlainObject")
+  noNaughtJs,
+  scrollPage,
+  scrollOnLoad,
+  initCollectLinks,
+  collect,
+  outLinks
 };

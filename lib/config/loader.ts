@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import path from 'path';
-import { inspect } from 'util';
-import fs from 'fs-extra';
-import yaml from 'js-yaml';
-import untildify from 'untildify';
-import { defaultOpts } from '../defaults';
-import cp from '../utils/colorPrinters';
-import FH from '../frontier/helper';
-import uuid from 'uuid/v1';
+import path from "path";
+import { inspect } from "util";
+import fs from "fs-extra";
+import yaml from "js-yaml";
+import untildify from "untildify";
+import { defaultOpts } from "../defaults";
+import cp from "../utils/colorPrinters";
+import FH from "../frontier/helper";
+import uuid from "uuid/v1";
 
 /**
  * @desc Informs the user that they did not export the correct type of user script

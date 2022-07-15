@@ -14,19 +14,28 @@
  * limitations under the License.
  */
 
-import noNaughtJs from './noNaughtyJS';
+import Config from "../config";
 
-import { scrollPage, scrollOnLoad } from './scroll';
-import { initCollectLinks, collect, outLinks } from './collectLinks';
+import { Loader } from "../config/loader";
+import { makeRunnable } from "../utils/promises";
+import chromeRunner from "./chromeRunner";
+import puppeteerRunner from "./puppeteerRunner";
 
 /**
- * @type {{noNaughtJs: function(): void, scrollPage: scrollPage, scrollOnLoad: scrollOnLoad, initCollectLinks: initCollectLinks, collect: collect, outLinks: outLinks}}
+ * @desc Launch a configured crawl
+ * @param {string} configPath - Path to the crawls config file
+ * @return {Promise<void>}
  */
-export default {
-  noNaughtJs,
-  scrollPage,
-  scrollOnLoad,
-  initCollectLinks,
-  collect,
-  outLinks
-};
+async function runner(configPath) {
+  const config = await Loader.load(configPath);
+  if (config.chrome.use === "chrome") {
+    await chromeRunner(config);
+  } else {
+    await puppeteerRunner(config);
+  }
+}
+
+/**
+ * @type {function(string): void}
+ */
+export default makeRunnable(runner);

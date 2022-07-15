@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import FH from './helper';
+import FH from "./helper";
 
-import SeedTracker from './seedTracker';
-import { cmodePO, cmodSite } from './modes';
+import SeedTracker from "./seedTracker";
+import { cmodePO, cmodSite } from "./modes";
 
 /**
  * @desc In memory implementation of a frontier
