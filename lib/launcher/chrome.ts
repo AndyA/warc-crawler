@@ -30,7 +30,7 @@ import { delay } from "../utils/promises";
  * @param {ChromeOptions} options
  * @return {?ChromeOptions}
  */
-function ensureOptions (options = {}) {
+function ensureOptions(options = {}) {
   if ((options as any).port == null) {
     (options as any).port = 9222;
   }
@@ -49,7 +49,7 @@ function ensureOptions (options = {}) {
  * @param {string} userDataDir
  * @return {string[]}
  */
-function chromeArgs (options, userDataDir) {
+function chromeArgs(options, userDataDir) {
   const chromeArguments = [...DEFAULT_ARGS];
   chromeArguments.push(
     `--user-data-dir=${userDataDir}`,
@@ -85,7 +85,7 @@ class ChromeLauncher {
    * @param {?ChromeOptions} [options = {}]
    * @return {Promise<CRI>}
    */
-  static async launch (options) {
+  static async launch(options) {
     options = ensureOptions(options);
     if (options.executable === undefined) {
       options.executable = await ChromeFinder.findChrome();
@@ -107,7 +107,7 @@ class ChromeLauncher {
       detached: process.platform !== "win32"
     });
 
-    function maybeRemoveUDataDir () {
+    function maybeRemoveUDataDir() {
       if (!options.userDataDir) {
         try {
           fs.removeSync(userDataDir);
@@ -117,7 +117,7 @@ class ChromeLauncher {
 
     let killed = false;
 
-    function killChrome () {
+    function killChrome() {
       if (killed) {
         return;
       }
@@ -162,7 +162,7 @@ class ChromeLauncher {
    * @param {?ChromeOptions} [options = {}]
    * @return {Promise<CRI>}
    */
-  static async launchNoConnect (options = {}) {
+  static async launchNoConnect(options = {}) {
     options = ensureOptions(options);
     if ((options as any).executable == null) {
       (options as any).executable = await ChromeFinder.findChrome();
@@ -205,7 +205,7 @@ class ChromeLauncher {
       throw e;
     }
 
-    function maybeRemoveUDataDir () {
+    function maybeRemoveUDataDir() {
       if (!(options as any).userDataDir) {
         try {
           fs.removeSync(userDataDir);
@@ -213,7 +213,7 @@ class ChromeLauncher {
       }
     }
 
-    function killChrome () {
+    function killChrome() {
       if (killed) {
         return;
       }
@@ -235,7 +235,7 @@ class ChromeLauncher {
    * @param {?ChromeOptions} [options]
    * @return {Promise<CRI>}
    */
-  static connect (options = {}) {
+  static connect(options = {}) {
     return CRI(ensureOptions(options));
   }
 
@@ -245,7 +245,7 @@ class ChromeLauncher {
    * @return {Promise<CRI>}
    * @public
    */
-  static async newTab (options = {}) {
+  static async newTab(options = {}) {
     options = ensureOptions(options);
     let target = await CRI.New(options);
     return CRI({ ...options, target });
@@ -257,7 +257,7 @@ class ChromeLauncher {
    * @return {Promise<Object>}
    * @public
    */
-  static async getProtocolDef (options = {}) {
+  static async getProtocolDef(options = {}) {
     options = ensureOptions(options);
     return CRI.Protocol(options);
   }
@@ -269,7 +269,7 @@ class ChromeLauncher {
  * @param timeout
  * @return {Promise<any>}
  */
-function waitForWSEndpoint (chromeProcess, timeout) {
+function waitForWSEndpoint(chromeProcess, timeout) {
   return new Promise((resolve, reject) => {
     const rl = readline.createInterface({ input: chromeProcess.stderr });
     let stderr = "";
@@ -281,12 +281,12 @@ function waitForWSEndpoint (chromeProcess, timeout) {
     ];
     const timeoutId = timeout ? setTimeout(onTimeout, timeout) : 0;
 
-    function onClose () {
+    function onClose() {
       cleanup();
       reject(new Error(["Failed to launch chrome!", stderr].join("\n")));
     }
 
-    function onTimeout () {
+    function onTimeout() {
       cleanup();
       reject(
         new Error(
@@ -298,7 +298,7 @@ function waitForWSEndpoint (chromeProcess, timeout) {
     /**
      * @param {string} line
      */
-    function onLine (line) {
+    function onLine(line) {
       stderr += line + "\n";
       const match = line.match(/^DevTools listening on (ws:\/\/.*)$/);
       if (!match) {
@@ -308,7 +308,7 @@ function waitForWSEndpoint (chromeProcess, timeout) {
       resolve(match[1]);
     }
 
-    function cleanup () {
+    function cleanup() {
       if (timeoutId) {
         clearTimeout(timeoutId);
       }

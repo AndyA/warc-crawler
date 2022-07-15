@@ -20,13 +20,13 @@ import cp from "../utils/colorPrinters";
  * @ignore
  * @desc Default function that does nothing
  */
-function thenNoop () {}
+function thenNoop() {}
 
 /**
  * @desc Default catch function for promises. Prints error and message
  * @param {Error} err
  */
-function defaultCatcher (err) {
+function defaultCatcher(err) {
   cp.error("A Fatal Error Occurred", err);
   cp.bred(
     "Please Inform The Maintainer Of This Project About It. Information In package.json"
@@ -39,13 +39,11 @@ function defaultCatcher (err) {
  * @param {function()|Promise} runnable The promise or async / promise returning function to run
  * @return {void}
  */
-function runPromise (runnable, thener = thenNoop, catcher = defaultCatcher) {
+function runPromise(runnable, thener = thenNoop, catcher = defaultCatcher) {
   if (typeof runnable.then === "function") {
     runnable.then(thener).catch(catcher);
   } else {
-    runnable()
-      .then(thener)
-      .catch(catcher);
+    runnable().then(thener).catch(catcher);
   }
 }
 
@@ -53,7 +51,7 @@ function runPromise (runnable, thener = thenNoop, catcher = defaultCatcher) {
  * @desc Composes the supplied function with {@link runPromise}.
  * @returns {function(...args: any): void}
  */
-export const makeRunnable = function makeRunnable (runnable) {
+export const makeRunnable = function makeRunnable(runnable) {
   return function () {
     return runPromise(runnable.apply(this, arguments));
   };
@@ -64,7 +62,7 @@ export const makeRunnable = function makeRunnable (runnable) {
  * @param {number} amount - The amount of time to delay by
  * @return {Promise<void>}
  */
-export const delay = function delay (amount) {
+export const delay = function delay(amount) {
   return new Promise(resolve => {
     setTimeout(resolve, amount);
   });

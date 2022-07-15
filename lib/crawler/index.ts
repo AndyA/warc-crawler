@@ -22,7 +22,7 @@ import PuppeteerCrawler from "./puppeteer";
  * @param {CrawlConfig} config - The crawl config
  * @returns {ChromeCrawler | PuppeteerCrawler}
  */
-function getCrawler (config) {
+function getCrawler(config) {
   if (config.chrome.use === "puppeteer") {
     return new PuppeteerCrawler(config);
   }

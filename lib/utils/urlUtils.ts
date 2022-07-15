@@ -34,7 +34,7 @@ const normalizeURL = partialRight(_normalizeURL, {
  * @param {Object} configuration
  * @return {function (url: string): string}
  */
-function configureURLNormalizer (
+function configureURLNormalizer(
   configuration = { stripHash: false, stripWWW: true }
 ) {
   return partialRight(_normalizeURL, configuration);

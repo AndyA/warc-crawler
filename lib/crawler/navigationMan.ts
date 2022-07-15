@@ -40,7 +40,7 @@ class NavigationMan extends EventEmitter {
    * @param {CrawlControl} [options = {}]
    * @param {EventEmitter} [parentEmitter]
    */
-  constructor (options = {}, parentEmitter) {
+  constructor(options = {}, parentEmitter) {
     super();
 
     /**
@@ -129,7 +129,7 @@ class NavigationMan extends EventEmitter {
    * @desc Start Timers For Navigation Monitoring
    * @param {string} curl the URL browser is navigating to
    */
-  startedNav (curl) {
+  startedNav(curl) {
     this._curl = curl;
     this._requestIds.clear();
     this._doneTimers = false;
@@ -145,7 +145,7 @@ class NavigationMan extends EventEmitter {
    * @param {Object} info - CDP object received from Network.requestWillBeSent
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#event-requestWillBeSent
    */
-  reqStarted (info) {
+  reqStarted(info) {
     if (!this._doneTimers) {
       this._requestIds.add(info.requestId);
       if (this._requestIds.size > this._idleInflight) {
@@ -161,7 +161,7 @@ class NavigationMan extends EventEmitter {
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#event-responseReceived
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Network#event-loadingFailed
    */
-  reqFinished (info) {
+  reqFinished(info) {
     if (!this._doneTimers) {
       this._requestIds.delete(info.requestId);
       if (this._requestIds.size <= this._idleInflight && !this._idleTimer) {
@@ -173,7 +173,7 @@ class NavigationMan extends EventEmitter {
   /**
    * @desc Indicate that the browser has navigated to the current URL
    */
-  didNavigate () {
+  didNavigate() {
     if (this._navTimeout) {
       clearTimeout(this._navTimeout);
       this._navTimeout = null;
@@ -185,7 +185,7 @@ class NavigationMan extends EventEmitter {
    * @desc Used to have the NavigationManger emit the 'navigation-error' event
    * @param {Error | string} err
    */
-  navigationError (err) {
+  navigationError(err) {
     if (this._navTimeout) {
       clearTimeout(this._navTimeout);
       this._navTimeout = null;
@@ -201,7 +201,7 @@ class NavigationMan extends EventEmitter {
    * @desc Called when the navigation time limit was hit
    * @private
    */
-  _navTimedOut () {
+  _navTimedOut() {
     if (this._navTimeout) {
       clearTimeout(this._navTimeout);
       this._navTimeout = null;
@@ -213,7 +213,7 @@ class NavigationMan extends EventEmitter {
    * @desc Called when the global time limit was hit
    * @private
    */
-  _globalNetworkTimeout () {
+  _globalNetworkTimeout() {
     this._clearTimers();
     // @ts-expect-error TS(2554): Expected 2 arguments, but got 1.
     this._emitEvent("network-idle");
@@ -223,7 +223,7 @@ class NavigationMan extends EventEmitter {
    * @desc Called when the network idle has been determined
    * @private
    */
-  _networkIdled () {
+  _networkIdled() {
     this._clearTimers();
     // @ts-expect-error TS(2554): Expected 2 arguments, but got 1.
     this._emitEvent("network-idle");
@@ -233,7 +233,7 @@ class NavigationMan extends EventEmitter {
    * @desc Clear all timers
    * @private
    */
-  _clearTimers () {
+  _clearTimers() {
     if (!this._doneTimers) {
       this._doneTimers = true;
     }
@@ -253,7 +253,7 @@ class NavigationMan extends EventEmitter {
    * @param [arg]          - The value to be emitted for the event
    * @private
    */
-  _emitEvent (event, arg) {
+  _emitEvent(event, arg) {
     if (this._parentEmitter) {
       this._parentEmitter.emit(event, arg);
     } else {

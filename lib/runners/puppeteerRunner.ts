@@ -25,7 +25,7 @@ import WARCNaming from "../utils/warcNaming";
  * @param {CrawlConfig} conf - The crawl config for this crawl
  * @return {Promise<void, Error>}
  */
-async function puppeteerRunner (conf) {
+async function puppeteerRunner(conf) {
   const frontier = new Frontier();
   cp.crawlerOpt("Crawler Operating In", conf.crawlControl.mode, "mode");
   if (conf.seeds == null) {

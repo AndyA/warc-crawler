@@ -21,7 +21,7 @@ import isEmpty from "lodash/isEmpty";
  * @param {Object?} object
  * @return {boolean}
  */
-export default function isEmptyPlainObject (object) {
+export default function isEmptyPlainObject(object) {
   if (object === null || object === undefined) {
     return true;
   }

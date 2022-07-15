@@ -37,7 +37,7 @@ class ColorPrinters {
    * @desc Yellow colored console.log
    * @param args
    */
-  static yellow (...args) {
+  static yellow(...args) {
     console.log(chalk.yellow(...args));
   }
 
@@ -45,7 +45,7 @@ class ColorPrinters {
    * @desc Green colored console.log
    * @param args
    */
-  static green (...args) {
+  static green(...args) {
     console.log(chalk.green(...args));
   }
 
@@ -53,7 +53,7 @@ class ColorPrinters {
    * @desc Red colored console.log
    * @param args
    */
-  static red (...args) {
+  static red(...args) {
     console.log(chalk.red(...args));
   }
 
@@ -61,7 +61,7 @@ class ColorPrinters {
    * @desc Bright red colored console.log
    * @param args
    */
-  static bred (...args) {
+  static bred(...args) {
     console.log(chalk.bold.red(...args));
   }
 
@@ -69,7 +69,7 @@ class ColorPrinters {
    * @desc Blue colored console.log
    * @param args
    */
-  static blue (...args) {
+  static blue(...args) {
     console.log(chalk.blue(...args));
   }
 
@@ -77,7 +77,7 @@ class ColorPrinters {
    * @desc Cyan colored console.log
    * @param args
    */
-  static cyan (...args) {
+  static cyan(...args) {
     console.log(chalk.cyan(...args));
   }
 
@@ -85,7 +85,7 @@ class ColorPrinters {
    * @desc Magenta colored console.log
    * @param args
    */
-  static magenta (...args) {
+  static magenta(...args) {
     console.log(chalk.magenta(...args));
   }
 
@@ -94,7 +94,7 @@ class ColorPrinters {
    * @param {string} m - The message to display
    * @param {Error} error - The exception to pretty print
    */
-  static error (m, error) {
+  static error(m, error) {
     console.log(chalk.bold.red(m));
     console.log(pe.render(error));
   }
@@ -104,7 +104,7 @@ class ColorPrinters {
    * @param bb
    * @param rest
    */
-  static boldBlueGreen (bb, ...rest) {
+  static boldBlueGreen(bb, ...rest) {
     console.log(chalk.bold.blue(bb), chalk.green(...rest));
   }
 
@@ -113,7 +113,7 @@ class ColorPrinters {
    * @param f
    * @param r
    */
-  static crawlerOpt (f, ...r) {
+  static crawlerOpt(f, ...r) {
     console.log(chalk.bold.blue(f), chalk.bold.yellow(...r));
   }
 
@@ -122,7 +122,7 @@ class ColorPrinters {
    * @param m
    * @param config
    */
-  static configError (m, config) {
+  static configError(m, config) {
     console.log(chalk.bold.red(m));
     console.log(chalk.red(JSON.stringify(config, null, "\t")));
   }

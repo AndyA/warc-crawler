@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
+import isEmptyPlainObject from "./isEmptyPlainObject";
+
 /**
  * @type {{isEmptyPlainObject: isEmptyPlainObject}}
  */
 export default {
-  isEmptyPlainObject: require("./isEmptyPlainObject")
+  isEmptyPlainObject
 };

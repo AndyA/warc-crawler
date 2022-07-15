@@ -33,7 +33,7 @@ class InjectManager {
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Runtime#method-evaluate
    * @return {scrollPage}
    */
-  static rawScoll () {
+  static rawScoll() {
     return scrollPage;
   }
 
@@ -42,7 +42,7 @@ class InjectManager {
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Runtime#method-evaluate
    * @return {function(): void}
    */
-  static rawNoNaughty () {
+  static rawNoNaughty() {
     return noNaughtJs;
   }
 
@@ -51,7 +51,7 @@ class InjectManager {
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Runtime#method-evaluate
    * @return {collect}
    */
-  static rawCollectInject () {
+  static rawCollectInject() {
     return collect;
   }
 
@@ -59,7 +59,7 @@ class InjectManager {
    * @desc Receive the raw function that is used to collect outlines from each of the pages frames. Used by {@link PuppeteerCrawler}
    * @return {outLinks}
    */
-  static rawOutLinks () {
+  static rawOutLinks() {
     return outLinks;
   }
 
@@ -68,7 +68,7 @@ class InjectManager {
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-addScriptToEvaluateOnNewDocument
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-addScriptToEvaluateOnLoad
    */
-  static getCollectInject () {
+  static getCollectInject() {
     return {
       expression: `(${collect.toString()})()`,
       returnByValue: true,
@@ -83,7 +83,7 @@ class InjectManager {
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-addScriptToEvaluateOnNewDocument
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-addScriptToEvaluateOnLoad
    */
-  static getNoNaughtyJsInject (onNewDocument = true) {
+  static getNoNaughtyJsInject(onNewDocument = true) {
     const key = onNewDocument ? "source" : "scriptSource";
     return {
       [key]: `(${noNaughtJs.toString()})()`
@@ -96,7 +96,7 @@ class InjectManager {
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-addScriptToEvaluateOnNewDocument
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-addScriptToEvaluateOnLoad
    */
-  static getScollOnLoadInject (onNewDocument = true) {
+  static getScollOnLoadInject(onNewDocument = true) {
     const key = onNewDocument ? "source" : "scriptSource";
     return {
       [key]: `(${scrollOnLoad.toString()})()`
@@ -110,7 +110,7 @@ class InjectManager {
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-addScriptToEvaluateOnNewDocument
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-addScriptToEvaluateOnLoad
    */
-  static getScrollInject (onNewDocument = true) {
+  static getScrollInject(onNewDocument = true) {
     const key = onNewDocument ? "source" : "scriptSource";
     return {
       [key]: `(${scrollOnLoad.toString()})()`
@@ -124,7 +124,7 @@ class InjectManager {
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-addScriptToEvaluateOnLoad
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-addScriptToEvaluateOnNewDocument
    */
-  static getCrawlInjects (onNewDocument = true) {
+  static getCrawlInjects(onNewDocument = true) {
     const key = onNewDocument ? "source" : "scriptSource";
     return {
       [key]: `(function (){
@@ -142,7 +142,7 @@ class InjectManager {
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-addScriptToEvaluateOnNewDocument
    * @see https://chromedevtools.github.io/devtools-protocol/tot/Page#method-addScriptToEvaluateOnLoad
    */
-  static getCrawlInjectsNoScroll (onNewDocument = true) {
+  static getCrawlInjectsNoScroll(onNewDocument = true) {
     const key = onNewDocument ? "source" : "scriptSource";
     return {
       [key]: `(function (){

@@ -24,7 +24,7 @@ import CRI from "chrome-remote-interface";
  * @param {ChromeOptions} options
  * @return {Promise<string>}
  */
-async function findPageToConnectTo (options) {
+async function findPageToConnectTo(options) {
   const targets = await CRI.List(options);
   let backup;
   let i = 0;
@@ -47,7 +47,7 @@ async function findPageToConnectTo (options) {
  * @param {ChromeOptions} options
  * @returns {!Promise<!Puppeteer.Browser>}
  */
-export default async function launch (options) {
+export default async function launch(options) {
   if (options.launch) {
     const chromeArgs = [...DEFAULT_ARGS];
     if (options.headless) {

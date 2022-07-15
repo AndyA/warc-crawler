@@ -20,7 +20,7 @@
  *
  * This is done to ensure that they can not be used crawler traps.
  */
-export default function noNaughtyJS () {
+export default function noNaughtyJS() {
   Object.defineProperty(window, "onbeforeunload", {
     configurable: false,
     // @ts-expect-error TS(2345): Argument of type '{ configurable: false; writeable... Remove this comment to see the full error message
@@ -48,19 +48,19 @@ export default function noNaughtyJS () {
   /* eslint-disable */
 
   if (!(window as any).chrome) {
-    const installer = { install () {} };
+    const installer = { install() {} };
     (window as any).chrome = {
       app: { isInstalled: false },
       webstore: {
         onInstallStageChanged: {},
         onDownloadProgress: {},
-        install (url, onSuccess, onFailure) {
+        install(url, onSuccess, onFailure) {
           // @ts-expect-error TS(2554): Expected 0 arguments, but got 3.
           installer.install(url, onSuccess, onFailure);
         }
       },
-      csi () {},
-      loadTimes () {}
+      csi() {},
+      loadTimes() {}
     };
   }
 

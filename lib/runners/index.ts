@@ -27,7 +27,7 @@ import puppeteerRunner from "./puppeteerRunner";
  * @param {string} configPath - Path to the crawls config file
  * @return {Promise<void>}
  */
-async function runner (configPath) {
+async function runner(configPath) {
   const config = await Loader.load(configPath);
   if (config.chrome.use === "chrome") {
     await chromeRunner(config);

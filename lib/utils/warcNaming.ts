@@ -30,7 +30,7 @@ class WARCNaming {
    * @param {string} outPath the full path to the WARC file output directory
    * @return {function(seedURL: string): string}
    */
-  static warcNamePerURL (outPath) {
+  static warcNamePerURL(outPath) {
     return seedURL =>
       path.join(
         outPath,
@@ -46,7 +46,7 @@ class WARCNaming {
    * @param {string} warcName the name of the WARC file to create
    * @return {function(): string}
    */
-  static suppliedWarcName (outPath, warcName) {
+  static suppliedWarcName(outPath, warcName) {
     const warcFilePath = path.join(outPath, warcName);
     return () => warcFilePath;
   }
@@ -56,7 +56,7 @@ class WARCNaming {
    * @param {string} outPath
    * @return {function(seedURL: string): string}
    */
-  static apndWarcNamePerURL (outPath) {
+  static apndWarcNamePerURL(outPath) {
     let fseed;
     return function (seedURL) {
       if (fseed == null) {
@@ -75,7 +75,7 @@ class WARCNaming {
    * @desc Configures the function that produces the WARC(s) name
    * @param {CrawlConfig} options
    */
-  static getWarcNamingFunction ({ warc }) {
+  static getWarcNamingFunction({ warc }) {
     if (warc.naming.toLowerCase() === "url") {
       cp.crawlerOpt(
         "Crawler Will Be Generating WARC Files Using",

@@ -31,7 +31,7 @@ class NetworkMonitor extends RequestHandler {
    * @param {Object} network
    * @param {NavigationMan} navMan
    */
-  constructor (network, navMan) {
+  constructor(network, navMan) {
     super();
     /**
      * @type {NavigationMan}
@@ -48,13 +48,13 @@ class NetworkMonitor extends RequestHandler {
    * @desc Indicate that a request has finished for the RequestHandler#navMan
    * @param {Object} info
    */
-  loadingFinished (info) {
+  loadingFinished(info) {
     if (this._capture) {
       this.navMan.reqFinished(info);
     }
   }
 
-  requestWillBeSent (info) {
+  requestWillBeSent(info) {
     super.requestWillBeSent(info);
     if (this._capture) {
       this.navMan.reqStarted(info);
@@ -83,7 +83,7 @@ class ChromeCrawler extends EventEmitter {
    * JSDoc CrawlConfig typedef {@link CrawlConfig}
    * @param {CrawlConfig} options - The crawl config for this crawl
    */
-  constructor (options) {
+  constructor(options) {
     super();
     /**
      * @desc Crawl configuration options
@@ -152,7 +152,7 @@ class ChromeCrawler extends EventEmitter {
    * @desc Connect to the Chrome instance the crawler will be using and setup crawler
    * @return {Promise<void>}
    */
-  async init () {
+  async init() {
     if (this.options.chrome.launch) {
       this._client = await Launcher.launch(this.options.chrome);
     } else {
@@ -186,7 +186,7 @@ class ChromeCrawler extends EventEmitter {
    * @return {Promise<void>}
    * @private
    */
-  async _initInjects () {
+  async _initInjects() {
     if (this._client.Page.addScriptToEvaluateOnNewDocument) {
       await this._client.Page.addScriptToEvaluateOnNewDocument(
         InjectManager.getCrawlInjects()
@@ -202,7 +202,7 @@ class ChromeCrawler extends EventEmitter {
    * @desc Navigate to a new Web Page
    * @param {string} url - The url to navigate the browser to
    */
-  navigate (url) {
+  navigate(url) {
     this._currentUrl = url;
     this._pages.push(url);
     this._client.Page.navigate({ url }, this._navMan.didNavigate);
@@ -214,14 +214,14 @@ class ChromeCrawler extends EventEmitter {
    * @desc Equivalent to hitting the refresh button when it is an X
    * @return {Promise<any>}
    */
-  stopPageLoading () {
+  stopPageLoading() {
     return this._client.Page.stopLoading();
   }
 
   /**
    * @desc Stop capturing the current web pages network requests
    */
-  stopCapturingNetwork () {
+  stopCapturingNetwork() {
     this.requestMonitor.stopCapturing();
   }
 
@@ -229,7 +229,7 @@ class ChromeCrawler extends EventEmitter {
    * @desc Stop the page loading and stop capturing requests
    * @return {Promise<void>}
    */
-  stop () {
+  stop() {
     this.requestMonitor.stopCapturing();
     return this._client.Page.stopLoading();
   }
@@ -237,7 +237,7 @@ class ChromeCrawler extends EventEmitter {
   /**
    * @desc Disconnect from the Chrome instance currently attached to
    */
-  async shutdown () {
+  async shutdown() {
     this._client.close();
     if (this.options.warc.appending) {
       await this.writeWRPlayerPagesRecord();
@@ -250,7 +250,7 @@ class ChromeCrawler extends EventEmitter {
    * @param {string} warcPath           - the path to the new WARC
    * @param {Object} [options] - WARC file creation options
    */
-  initWARC (warcPath, options) {
+  initWARC(warcPath, options) {
     this._warcGenerator.initWARC(warcPath, options);
   }
 
@@ -261,7 +261,7 @@ class ChromeCrawler extends EventEmitter {
    * @property {?Object} info     - Information for the WARC info record
    * @return {Promise<void, Error>}
    */
-  genWARC (warcInfo) {
+  genWARC(warcInfo) {
     return this.genWarc(warcInfo);
   }
 
@@ -272,7 +272,7 @@ class ChromeCrawler extends EventEmitter {
    * @property {?Object} info     - Information for the WARC info record
    * @return {Promise<void, Error>}
    */
-  async genWarc ({ info, outlinks }) {
+  async genWarc({ info, outlinks }) {
     info = info || {};
     info.isPartOfV = info.isPartOfV || this.options.versionInfo.isPartOfV;
     info.warcInfoDescription =
@@ -294,7 +294,7 @@ class ChromeCrawler extends EventEmitter {
     this._warcGenerator.end();
   }
 
-  genWARCForPage (outlinks) {
+  genWARCForPage(outlinks) {
     /**
      *
      * @type {{warcOpts: {warcPath: string, appending: boolean, gzip: boolean}, metadata: {targetURI: string, content: string}, pages: ?string, winfo: ?Object}}
@@ -330,7 +330,7 @@ class ChromeCrawler extends EventEmitter {
     );
   }
 
-  async writeWRPlayerPagesRecord () {
+  async writeWRPlayerPagesRecord() {
     this._warcGenerator.initWARC(this._warcNamingFN(this._currentUrl), {
       appending: true
     });
@@ -349,7 +349,7 @@ class ChromeCrawler extends EventEmitter {
    * @property {?Object} info     - Information for the WARC info record
    * @return {!Promise<void>}
    */
-  async genInfoMetaDataRecord ({ info, outlinks }) {
+  async genInfoMetaDataRecord({ info, outlinks }) {
     info = info || {};
     info.v = info.v || this.options.versionInfo.v;
     info.isPartOfV = info.isPartOfV || this.options.versionInfo.isPartOfV;
@@ -370,7 +370,7 @@ class ChromeCrawler extends EventEmitter {
    * @desc Retrieve the page's meta information
    * @return {Promise<{outlinks: string, links: string[], location: string}, Error>}
    */
-  async getOutLinks () {
+  async getOutLinks() {
     let evaled = await this._client.Runtime.evaluate(
       InjectManager.getCollectInject()
     );
@@ -381,7 +381,7 @@ class ChromeCrawler extends EventEmitter {
    * @desc Retrieve the browsers user-agent string
    * @return {Promise<string>}
    */
-  async getUserAgent () {
+  async getUserAgent() {
     let { userAgent } = await this._client.Browser.getVersion();
     if (userAgent.indexOf("HeadlessChrome/") !== -1) {
       // We are not a robot, pinkie promise!
@@ -395,7 +395,7 @@ class ChromeCrawler extends EventEmitter {
    * @desc Iterate over the captured network requests for the current web page
    * @return {Iterator<CapturedRequest>}
    */
-  [Symbol.iterator] () {
+  [Symbol.iterator]() {
     return this.requestMonitor.values();
   }
 
@@ -403,7 +403,7 @@ class ChromeCrawler extends EventEmitter {
    * @desc Callback used for Page.navigate
    * @private
    */
-  _didNavigate () {
+  _didNavigate() {
     this._navMan.didNavigate();
   }
 
@@ -412,7 +412,7 @@ class ChromeCrawler extends EventEmitter {
    * @return {ChromeCrawler}
    * @private
    */
-  enableAutoClose () {
+  enableAutoClose() {
     if (!this._autoClose) {
       process.on("exit", this._close);
     }
@@ -424,7 +424,7 @@ class ChromeCrawler extends EventEmitter {
    * @desc Callback for process.on('exit')
    * @private
    */
-  _close () {
+  _close() {
     if (this._client) {
       return this._client.close();
     }
@@ -435,7 +435,7 @@ class ChromeCrawler extends EventEmitter {
    * @param {Error} err
    * @private
    */
-  _onWARCGenError (err) {
+  _onWARCGenError(err) {
     this.emit("error", { type: "warc-gen", err });
   }
 
@@ -443,7 +443,7 @@ class ChromeCrawler extends EventEmitter {
    * @desc Listener for warc generator finished
    * @private
    */
-  _onWARCGenFinished () {
+  _onWARCGenFinished() {
     this.emit("warc-gen-finished");
   }
 
@@ -452,7 +452,7 @@ class ChromeCrawler extends EventEmitter {
    * @param {CrawlConfig} options - The crawl config for this crawl
    * @return {ChromeCrawler}
    */
-  static withAutoClose (options) {
+  static withAutoClose(options) {
     return new ChromeCrawler(options).enableAutoClose();
   }
 }

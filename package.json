@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "standard | snazzy",
     "lint-fix": "standard --fix",
-    "format": "prettier-standard 'lib/**/*.ts'",
+    "format": "prettier -w 'lib/**/*.ts'",
     "docs": "esdoc",
     "publish-docs": "gh-pages -d docs",
     "build": "tsc"
@@ -50,7 +50,6 @@
     "esdoc-standard-plugin": "^1.0.0",
     "gh-pages": "^2.0.1",
     "microtime": "^3.0.0",
-    "prettier-standard": "^9.1.1",
     "snazzy": "^8.0.0",
     "standard": "^12.0.1",
     "ts-migrate": "^0.1.30",

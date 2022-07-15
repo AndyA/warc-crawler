@@ -26,7 +26,7 @@ import WARCNaming from "../utils/warcNaming";
  * @param {CrawlConfig} conf - The crawl config for this crawl
  * @return {Promise<void, Error>}
  */
-async function chromeRunner (conf) {
+async function chromeRunner(conf) {
   const frontier = new Frontier();
   cp.crawlerOpt("Crawler Operating In", conf.mode, "mode");
   if (conf.seeds == null) {

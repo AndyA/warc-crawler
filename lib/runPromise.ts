@@ -19,13 +19,13 @@ import cp from "../lib/utils/colorPrinters";
 /**
  * @desc just a no op
  */
-function thenNoop () {}
+function thenNoop() {}
 
 /**
  * @desc The default Promise.catch function
  * @param {Error} err
  */
-function defaultCatcher (err) {
+function defaultCatcher(err) {
   cp.error("A Fatal Error Occurred", err);
   cp.bred(
     "Please Inform The Maintainer Of This Project About It. Information In package.json"
@@ -37,13 +37,11 @@ function defaultCatcher (err) {
  * @param {!function(): Promise<any> | Promise<any>} runnable The promise or async / promise returning function to run
  * @return {void}
  */
-function runPromise (runnable, thener = thenNoop, catcher = defaultCatcher) {
+function runPromise(runnable, thener = thenNoop, catcher = defaultCatcher) {
   if (typeof runnable.then === "function") {
     runnable.then(thener).catch(catcher);
   } else {
-    runnable()
-      .then(thener)
-      .catch(catcher);
+    runnable().then(thener).catch(catcher);
   }
 }
 

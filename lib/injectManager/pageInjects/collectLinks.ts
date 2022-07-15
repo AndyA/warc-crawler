@@ -32,7 +32,7 @@
  * The `outlinkcollect` message is sent by TopHandler to each child frame to have it start collecting outlinks.
  * @return {void}
  */
-export const initCollectLinks = function initCollectLinks () {
+export const initCollectLinks = function initCollectLinks() {
   let isIframe;
   try {
     isIframe = window.self !== window.top;
@@ -53,7 +53,7 @@ export const initCollectLinks = function initCollectLinks () {
     outlinks: any;
     urlParer: any;
     urlParts: any;
-    constructor () {
+    constructor() {
       this.ignore = [
         "#",
         "about:",
@@ -79,7 +79,7 @@ export const initCollectLinks = function initCollectLinks () {
       this.dot = /\./g;
     }
 
-    static extractLinks () {
+    static extractLinks() {
       const collector = new Collector();
       return collector.getOutlinks();
     }
@@ -89,7 +89,7 @@ export const initCollectLinks = function initCollectLinks () {
      * @param {string} test - A URL
      * @return {boolean}
      */
-    shouldIgnore (test) {
+    shouldIgnore(test) {
       let ignored = false;
       for (let i = 0; i < this.ilen; ++i) {
         if (test.startsWith(this.ignore[i])) {
@@ -113,7 +113,7 @@ export const initCollectLinks = function initCollectLinks () {
      * @desc Collects the outlink information for a frame
      * @return {{outlinks: string, links: Array<string>, location: string}}
      */
-    getOutlinks () {
+    getOutlinks() {
       const found = document.querySelectorAll(
         "a[href],link[href],img[src],script[src],area[href]"
       );
@@ -175,7 +175,7 @@ export const initCollectLinks = function initCollectLinks () {
     messages: any;
     to: any;
     toStop: any;
-    constructor (collectorRef, messages) {
+    constructor(collectorRef, messages) {
       /**
        * @type {{outlinks: string, links: Array<string>, totalChildren: number}}
        */
@@ -201,7 +201,7 @@ export const initCollectLinks = function initCollectLinks () {
      * @desc Returns a promise that resolves once outlink collection, from top frame and child frames is complete
      * @return {Promise<{outlinks: string, links: Array<string>, totalChildren: number}>}
      */
-    prWhenDone () {
+    prWhenDone() {
       return new Promise(resolve => {
         this.done = resolve;
       });
@@ -210,7 +210,7 @@ export const initCollectLinks = function initCollectLinks () {
     /**
      * @desc Send the `outlinkcollect` message to all child frames and start the collection timeout
      */
-    go () {
+    go() {
       this.countingChildren = false;
       this.found.totalChildren = this.childFrames;
       const cs = this.childSources;
@@ -226,7 +226,7 @@ export const initCollectLinks = function initCollectLinks () {
     /**
      * @desc Listens for the `outlinkgot` message sent by each child frame that contains its outlink information
      */
-    helloFromFrame (e) {
+    helloFromFrame(e) {
       if (e.data) {
         if (
           e.data.type === this.messages.indicateIsChild &&
@@ -251,7 +251,7 @@ export const initCollectLinks = function initCollectLinks () {
      * @desc Called once child frame outlink collection is complete. Collects the top frames outlinks and
      * resolves the Promise that is being awaited by the crawler with the values of all outlinks collected
      */
-    finished () {
+    finished() {
       if (this.to) {
         clearTimeout(this.to);
       }
@@ -286,7 +286,7 @@ export const initCollectLinks = function initCollectLinks () {
       false
     );
   } else {
-    const mhc = function messageHandlerChild (e) {
+    const mhc = function messageHandlerChild(e) {
       if (e.data && e.data.type === m.outlinkcollect) {
         let outlinks;
         try {
@@ -311,7 +311,7 @@ export const initCollectLinks = function initCollectLinks () {
  * @desc Starts the collection of the outlinks. Use only when {@link initCollectLinks} is pre-injected into every frame
  * @return {Promise<{outlinks: string, links: Array<string>, location: string}>}
  */
-export const collect = function collect () {
+export const collect = function collect() {
   const prom = (window as any).$$Squidwarc$Collector$$.prWhenDone();
   // defer execution of go
   Promise.resolve().then(() => (window as any).$$Squidwarc$Collector$$.go());
@@ -322,7 +322,7 @@ export const collect = function collect () {
  * @desc Builds the WARC outlink metadata information and finds potential links to goto next from a page and build
  * @return {Promise<{outlinks: string, links: Array<string>}>}
  */
-export const outLinks = async function outLinks () {
+export const outLinks = async function outLinks() {
   const ignore = [
     "#",
     "about:",
@@ -340,7 +340,7 @@ export const outLinks = async function outLinks () {
   const links = [];
   const linksSeen = new Set();
   const urlParer = new URL("about:blank");
-  function shouldIgnore (test) {
+  function shouldIgnore(test) {
     let ignored = false;
     let i = ignore.length;
     while (i--) {

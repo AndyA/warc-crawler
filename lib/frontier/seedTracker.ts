@@ -31,7 +31,7 @@ class SeedTracker {
    * @param {symbol} mode - The mode for the seed
    * @param {number} depth - The crawl depth
    */
-  constructor (url, mode, depth) {
+  constructor(url, mode, depth) {
     /**
      * @desc How many URLs are left to crawl that originated from the starting seed
      * @type {number}
@@ -67,14 +67,14 @@ class SeedTracker {
    * @desc Are there no more URLs to be crawled that are associated with this seed
    * @returns {boolean}
    */
-  done () {
+  done() {
     return this.urlCount === 0;
   }
 
   /**
    * @desc Decreases the number of URLs left to crawl for this seed
    */
-  crawledURL () {
+  crawledURL() {
     this.urlCount -= 1;
   }
 
@@ -83,7 +83,7 @@ class SeedTracker {
    * @param {string} url - The URL to check if we have seen it
    * @returns {boolean}
    */
-  seenURL (url) {
+  seenURL(url) {
     return this.seen.has(url);
   }
 
@@ -91,7 +91,7 @@ class SeedTracker {
    * @desc Adds a URL to the set of URLs seen and increments the seeds URL count
    * @param {string} url - The URL to mark as seen
    */
-  addToSeen (url) {
+  addToSeen(url) {
     this.seen.add(url);
     this.urlCount += 1;
   }
