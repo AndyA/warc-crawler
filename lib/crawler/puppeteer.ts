@@ -26,6 +26,7 @@ import launch from "../launcher/puppeteer";
 import NetIdle from "./netIdleWatcher";
 import cp from "../utils/colorPrinters";
 import WARCNaming from "../utils/warcNaming";
+import { CrawlConfig } from "../config";
 
 /**
  * @desc Crawler based on puppeteer
@@ -48,7 +49,7 @@ class PuppeteerCrawler extends EventEmitter {
    * JSDoc CrawlConfig typedef {@link CrawlConfig}
    * @param {CrawlConfig} options - The crawl config for this crawl
    */
-  constructor(options) {
+  constructor(options: CrawlConfig) {
     super();
 
     /**

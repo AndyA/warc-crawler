@@ -16,9 +16,6 @@
 import chalk from "chalk";
 
 import PrettyError from "pretty-error";
-/**
- * @type {module:pretty-error.PrettyError}
- */
 const pe = new PrettyError();
 
 pe.appendStyle({
@@ -37,7 +34,7 @@ class ColorPrinters {
    * @desc Yellow colored console.log
    * @param args
    */
-  static yellow(...args) {
+  static yellow(...args: any[]) {
     console.log(chalk.yellow(...args));
   }
 
