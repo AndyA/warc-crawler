@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-// @ts-expect-error TS(2614): Module '"./pageInjects"' has no exported member 'n... Remove this comment to see the full error message
 import {
   noNaughtJs,
   scrollPage,

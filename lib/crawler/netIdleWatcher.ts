@@ -18,6 +18,7 @@ import EventEmitter from "eventemitter3";
 import { Events } from "puppeteer/lib/Events";
 import autobind from "class-autobind";
 import H from "./helper";
+import { Page } from "puppeteer";
 
 /**
  * @desc Monitors the HTTP requests made by a page and emits the 'network-idle' event when it has been determined the network is idle
@@ -33,12 +34,12 @@ class NetIdleWatcher extends EventEmitter {
   _pageListenrs: any;
   _requestIds: any;
   _timeout: any;
-  page: any;
+  page: Page;
   /**
    * @param {Page} page - Puppeteer page object for the page being crawled
    * @param {?NetIdleOptions} [options = {}] - Optional options to control fine tune network idle determination
    */
-  constructor(page, options = {}) {
+  constructor(page: Page, options = {}) {
     super();
 
     /**
