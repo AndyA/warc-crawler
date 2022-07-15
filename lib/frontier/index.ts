@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import FH from './helper';
+import FH from "./helper";
 
-import SeedTracker from './seedTracker';
+import SeedTracker from "./seedTracker";
 // @ts-expect-error TS(2614): Module '"./modes"' has no exported member 'cmodePO... Remove this comment to see the full error message
-import { cmodePO, cmodSite } from './modes';
+import { cmodePO, cmodSite } from "./modes";
 
 /**
  * @desc In memory implementation of a frontier
@@ -29,7 +29,7 @@ class Frontier {
   /**
    * @desc Create a new frontier object
    */
-  constructor() {
+  constructor () {
     /**
      * @desc URLs to be crawled
      * @type {{url: string, mode: symbol, cdepth: number, tracker: string}[]}
@@ -53,7 +53,7 @@ class Frontier {
    * @desc Initialize the initial frontier
    * @param {Seed[] | Seed} starting
    */
-  init(starting) {
+  init (starting) {
     if (Array.isArray(starting)) {
       let i = 0;
       let len = starting.length;
@@ -90,7 +90,7 @@ class Frontier {
    * @desc Returns the number of URLs left in the queue
    * @return {number}
    */
-  size() {
+  size () {
     return this.queue.length;
   }
 
@@ -98,7 +98,7 @@ class Frontier {
    * @desc Is the frontier exhausted
    * @return {boolean}
    */
-  exhausted() {
+  exhausted () {
     return this.queue.length === 0;
   }
 
@@ -106,7 +106,7 @@ class Frontier {
    * @desc Get the next URL to crawl from the frontier, queue length - 1
    * @return {?string}
    */
-  next() {
+  next () {
     this.current = this.queue.shift();
     if (this.current) {
       return this.current.url;
@@ -118,7 +118,7 @@ class Frontier {
    * @desc Process discovered outlinks of a page based on the originating seeds configuration
    * @param {Array<{href: string, pathname: string, host: string}>} links list of seeds to consider
    */
-  process(links) {
+  process (links) {
     if (this.current.mode === cmodSite) {
       return this._processSiteMode(links);
     }
@@ -147,7 +147,7 @@ class Frontier {
     }
   }
 
-  _processSiteMode(links) {
+  _processSiteMode (links) {
     const tracker = this.trackers.get(this.current.tracker);
     const nextDepth = this.current.cdepth + 1;
     let i = links.length;

@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import prettyMs from 'pretty-ms';
+import prettyMs from "pretty-ms";
 
-import cp from '../utils/colorPrinters';
-import ChromeCrawler from '../crawler/chrome';
-import Frontier from '../frontier';
-import WARCNaming from '../utils/warcNaming';
+import cp from "../utils/colorPrinters";
+import ChromeCrawler from "../crawler/chrome";
+import Frontier from "../frontier";
+import WARCNaming from "../utils/warcNaming";
 
 /**
  * @desc Launches a crawl using the supplied configuration file path
  * @param {CrawlConfig} conf - The crawl config for this crawl
  * @return {Promise<void, Error>}
  */
-async function chromeRunner(conf) {
+async function chromeRunner (conf) {
   const frontier = new Frontier();
   cp.crawlerOpt("Crawler Operating In", conf.mode, "mode");
   if (conf.seeds == null) {

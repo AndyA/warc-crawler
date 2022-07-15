@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import EventEmitter from 'eventemitter3';
+import EventEmitter from "eventemitter3";
 
-import { Events } from 'puppeteer/lib/Events';
-import autobind from 'class-autobind';
-import H from './helper';
+import { Events } from "puppeteer/lib/Events";
+import autobind from "class-autobind";
+import H from "./helper";
 
 /**
  * @desc Monitors the HTTP requests made by a page and emits the 'network-idle' event when it has been determined the network is idle
@@ -38,29 +38,29 @@ class NetIdleWatcher extends EventEmitter {
    * @param {Page} page - Puppeteer page object for the page being crawled
    * @param {?NetIdleOptions} [options = {}] - Optional options to control fine tune network idle determination
    */
-  constructor(page, options = {}) {
+  constructor (page, options = {}) {
     super();
 
     /**
- * @desc Maximum amount of time a crawler going to visit a page
- * @type {number}
- * @private
- */
-this._timeout = (options as any).globalWait || 40000;
+     * @desc Maximum amount of time a crawler going to visit a page
+     * @type {number}
+     * @private
+     */
+    this._timeout = (options as any).globalWait || 40000;
 
     /**
- * @desc The amount of time no new HTTP requests should be made before emitting the network-idle event
- * @type {number}
- * @private
- */
-this._idleTime = (options as any).inflightIdle || 1500;
+     * @desc The amount of time no new HTTP requests should be made before emitting the network-idle event
+     * @type {number}
+     * @private
+     */
+    this._idleTime = (options as any).inflightIdle || 1500;
 
     /**
- * @desc The number of in-flight requests there should be before starting the network-idle timer
- * @type {number}
- * @private
- */
-this._idleInflight = (options as any).numInflight || 2;
+     * @desc The number of in-flight requests there should be before starting the network-idle timer
+     * @type {number}
+     * @private
+     */
+    this._idleInflight = (options as any).numInflight || 2;
 
     /**
      * @desc Set of the HTTP requests ids, used for tracking network-idle
@@ -112,7 +112,7 @@ this._idleInflight = (options as any).numInflight || 2;
    * @param {?NetIdleOptions} [options = {}] - Optional options to control fine tune network idle determination
    * @return {Promise<void>}
    */
-  static idlePromise(page, options) {
+  static idlePromise (page, options) {
     const im = new NetIdleWatcher(page, options);
     return new Promise((resolve, reject) => {
       im.start();
@@ -123,7 +123,7 @@ this._idleInflight = (options as any).numInflight || 2;
   /**
    * @desc Setup the necessary listeners
    */
-  start() {
+  start () {
     this._pageListenrs = [
       H.addEventListener(this.page, Events.Page.Request, this.reqStarted),
       H.addEventListener(this.page, Events.Page.Response, this.reqFinished),
@@ -141,7 +141,7 @@ this._idleInflight = (options as any).numInflight || 2;
    * @desc Indicate that a request was made
    * @param {Request} info - Puppeteer Request object
    */
-  reqStarted(info) {
+  reqStarted (info) {
     if (!this._doneTimers) {
       this._requestIds.add(info._requestId);
       if (this._requestIds.size > this._idleInflight) {
@@ -155,7 +155,7 @@ this._idleInflight = (options as any).numInflight || 2;
    * @desc Indicate that a request has finished
    * @param {Response | Request} info - Puppeteer Request or Response object
    */
-  reqFinished(info) {
+  reqFinished (info) {
     if (!this._doneTimers) {
       if (info._requestId) {
         this._requestIds.delete(info._requestId);
@@ -172,7 +172,7 @@ this._idleInflight = (options as any).numInflight || 2;
    * @desc Called when the global time limit was hit
    * @private
    */
-  _globalNetworkTimeout() {
+  _globalNetworkTimeout () {
     if (!this._doneTimers) {
       this._doneTimers = true;
     }
@@ -184,7 +184,7 @@ this._idleInflight = (options as any).numInflight || 2;
    * @desc Called when the network idle has been determined
    * @private
    */
-  _networkIdled() {
+  _networkIdled () {
     if (!this._doneTimers) {
       this._doneTimers = true;
     }
@@ -196,7 +196,7 @@ this._idleInflight = (options as any).numInflight || 2;
    * @desc Emit the network-idle event
    * @private
    */
-  _emitNetIdle() {
+  _emitNetIdle () {
     H.removeEventListeners(this._pageListenrs);
     this.emit("network-idle");
   }
@@ -205,7 +205,7 @@ this._idleInflight = (options as any).numInflight || 2;
    * @desc Clear all timers
    * @private
    */
-  _clearTimers() {
+  _clearTimers () {
     if (this._globalWaitTimer) {
       clearTimeout(this._globalWaitTimer);
       this._globalWaitTimer = null;

@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import cp from '../utils/colorPrinters';
+import cp from "../utils/colorPrinters";
 
-import PuppeteerCrawler from '../crawler/puppeteer';
-import Frontier from '../frontier';
-import WARCNaming from '../utils/warcNaming';
+import PuppeteerCrawler from "../crawler/puppeteer";
+import Frontier from "../frontier";
+import WARCNaming from "../utils/warcNaming";
 
 /**
  * @desc Launches a crawl using the supplied configuration file path
  * @param {CrawlConfig} conf - The crawl config for this crawl
  * @return {Promise<void, Error>}
  */
-async function puppeteerRunner(conf) {
+async function puppeteerRunner (conf) {
   const frontier = new Frontier();
   cp.crawlerOpt("Crawler Operating In", conf.crawlControl.mode, "mode");
   if (conf.seeds == null) {

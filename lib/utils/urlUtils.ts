@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import partialRight from 'lodash/partialRight';
+import partialRight from "lodash/partialRight";
 
-import _normalizeURL from 'normalize-url';
+import _normalizeURL from "normalize-url";
 
 /**
  * @desc the default URL normalization function
@@ -34,7 +34,7 @@ const normalizeURL = partialRight(_normalizeURL, {
  * @param {Object} configuration
  * @return {function (url: string): string}
  */
-function configureURLNormalizer(
+function configureURLNormalizer (
   configuration = { stripHash: false, stripWWW: true }
 ) {
   return partialRight(_normalizeURL, configuration);

@@ -18,7 +18,7 @@
  * @desc Function that is injected into every frame of the page being crawled that starts scrolling the page
  * once the `load` event has been fired a maximum of 20 times or until no more scroll can be done
  */
-export const scrollOnLoad = function scrollOnLoad() {
+export const scrollOnLoad = function scrollOnLoad () {
   let scrollingTO = 2000;
   let lastScrolled;
   let scrollerInterval;
@@ -60,7 +60,7 @@ export const scrollOnLoad = function scrollOnLoad() {
  * @desc Function that scrolls the page/frame injected into a maximum of 20 times or until no more scroll can be done
  * @returns {Promise<void>}
  */
-export const scrollPage = async function scrollPage() {
+export const scrollPage = async function scrollPage () {
   let scrollingTO = 2000;
   let lastScrolled = Date.now();
   let scrollCount = 0;

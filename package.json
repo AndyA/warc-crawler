@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "standard | snazzy",
     "lint-fix": "standard --fix",
-    "format": "prettier-standard 'lib/**/*.js'",
+    "format": "prettier-standard 'lib/**/*.ts'",
     "docs": "esdoc",
     "publish-docs": "gh-pages -d docs",
     "build": "tsc"
@@ -72,7 +72,6 @@
     "useTabs": false,
     "semi": true,
     "singleQuote": false,
-    "quoteProps": "consistent",
     "jsxSingleQuote": false,
     "trailingComma": "none",
     "bracketSpacing": true,

@@ -15,13 +15,13 @@
  */
 
 export default {
-  pageOnly(seed) {
+  pageOnly (seed) {
     return { url: seed, mode: "page-only" };
   },
-  pageSD(seed) {
+  pageSD (seed) {
     return { url: seed, mode: "page-same-domain" };
   },
-  pageALL(seed) {
+  pageALL (seed) {
     return { url: seed, mode: "page-all-links" };
   }
 };

@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import chalk from 'chalk';
+import chalk from "chalk";
 
-import PrettyError from 'pretty-error';
+import PrettyError from "pretty-error";
 /**
  * @type {module:pretty-error.PrettyError}
  */
@@ -31,13 +31,13 @@ pe.appendStyle({
  * @desc Utility class for displaying colored text in console
  */
 class ColorPrinters {
-static chalk = chalk;
+  static chalk = chalk;
 
   /**
    * @desc Yellow colored console.log
    * @param args
    */
-  static yellow(...args) {
+  static yellow (...args) {
     console.log(chalk.yellow(...args));
   }
 
@@ -45,7 +45,7 @@ static chalk = chalk;
    * @desc Green colored console.log
    * @param args
    */
-  static green(...args) {
+  static green (...args) {
     console.log(chalk.green(...args));
   }
 
@@ -53,7 +53,7 @@ static chalk = chalk;
    * @desc Red colored console.log
    * @param args
    */
-  static red(...args) {
+  static red (...args) {
     console.log(chalk.red(...args));
   }
 
@@ -61,7 +61,7 @@ static chalk = chalk;
    * @desc Bright red colored console.log
    * @param args
    */
-  static bred(...args) {
+  static bred (...args) {
     console.log(chalk.bold.red(...args));
   }
 
@@ -69,7 +69,7 @@ static chalk = chalk;
    * @desc Blue colored console.log
    * @param args
    */
-  static blue(...args) {
+  static blue (...args) {
     console.log(chalk.blue(...args));
   }
 
@@ -77,7 +77,7 @@ static chalk = chalk;
    * @desc Cyan colored console.log
    * @param args
    */
-  static cyan(...args) {
+  static cyan (...args) {
     console.log(chalk.cyan(...args));
   }
 
@@ -85,7 +85,7 @@ static chalk = chalk;
    * @desc Magenta colored console.log
    * @param args
    */
-  static magenta(...args) {
+  static magenta (...args) {
     console.log(chalk.magenta(...args));
   }
 
@@ -94,7 +94,7 @@ static chalk = chalk;
    * @param {string} m - The message to display
    * @param {Error} error - The exception to pretty print
    */
-  static error(m, error) {
+  static error (m, error) {
     console.log(chalk.bold.red(m));
     console.log(pe.render(error));
   }
@@ -104,7 +104,7 @@ static chalk = chalk;
    * @param bb
    * @param rest
    */
-  static boldBlueGreen(bb, ...rest) {
+  static boldBlueGreen (bb, ...rest) {
     console.log(chalk.bold.blue(bb), chalk.green(...rest));
   }
 
@@ -113,7 +113,7 @@ static chalk = chalk;
    * @param f
    * @param r
    */
-  static crawlerOpt(f, ...r) {
+  static crawlerOpt (f, ...r) {
     console.log(chalk.bold.blue(f), chalk.bold.yellow(...r));
   }
 
@@ -122,7 +122,7 @@ static chalk = chalk;
    * @param m
    * @param config
    */
-  static configError(m, config) {
+  static configError (m, config) {
     console.log(chalk.bold.red(m));
     console.log(chalk.red(JSON.stringify(config, null, "\t")));
   }

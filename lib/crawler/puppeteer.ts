@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import EventEmitter from 'eventemitter3';
+import EventEmitter from "eventemitter3";
 
-import { Events } from 'puppeteer/lib/Events';
-import { TimeoutError } from 'puppeteer/lib/Errors';
-import normalizeURL from 'normalize-url';
-import autobind from 'class-autobind';
-import PuppeteerCDPRequestCapturer from 'node-warc/lib/requestCapturers/puppeteerCDP';
-import PuppeteerCDPWARCGenerator from 'node-warc/lib/writers/puppeteerCDP';
-import InjectManager from '../injectManager';
-import launch from '../launcher/puppeteer';
-import NetIdle from './netIdleWatcher';
-import cp from '../utils/colorPrinters';
-import WARCNaming from '../utils/warcNaming';
+import { Events } from "puppeteer/lib/Events";
+import { TimeoutError } from "puppeteer/lib/Errors";
+import normalizeURL from "normalize-url";
+import autobind from "class-autobind";
+import PuppeteerCDPRequestCapturer from "node-warc/lib/requestCapturers/puppeteerCDP";
+import PuppeteerCDPWARCGenerator from "node-warc/lib/writers/puppeteerCDP";
+import InjectManager from "../injectManager";
+import launch from "../launcher/puppeteer";
+import NetIdle from "./netIdleWatcher";
+import cp from "../utils/colorPrinters";
+import WARCNaming from "../utils/warcNaming";
 
 /**
  * @desc Crawler based on puppeteer
@@ -48,7 +48,7 @@ class PuppeteerCrawler extends EventEmitter {
    * JSDoc CrawlConfig typedef {@link CrawlConfig}
    * @param {CrawlConfig} options - The crawl config for this crawl
    */
-  constructor(options) {
+  constructor (options) {
     super();
 
     /**
@@ -116,14 +116,14 @@ class PuppeteerCrawler extends EventEmitter {
    * @desc CB used to emit the disconnected event
    * @private
    */
-  _onDisconnected() {
+  _onDisconnected () {
     this.emit("disconnected");
   }
 
   /**
    * @desc Setup the crawler
    */
-  async init() {
+  async init () {
     this._browser = await launch(this.options.chrome);
     this._browser.on(Events.Browser.Disconnected, this._onDisconnected);
     this._page = await this._browser.newPage();
@@ -155,7 +155,7 @@ class PuppeteerCrawler extends EventEmitter {
    * @param {string} url
    * @returns {Promise<boolean>}
    */
-  async navigate(url) {
+  async navigate (url) {
     this._currentUrl = url;
     this.requestCapturer.startCapturing();
     try {
@@ -183,7 +183,7 @@ class PuppeteerCrawler extends EventEmitter {
    * @desc If the user supplied a script that scrip is executed or if non was supplied just scroll the page
    * @return {Promise<void>}
    */
-  async runUserScript() {
+  async runUserScript () {
     if (this.options.crawlControl.script) {
       cp.cyan(`Running user script`);
       try {
@@ -208,14 +208,14 @@ class PuppeteerCrawler extends EventEmitter {
    * @desc Equivalent to hitting the refresh button when it is an X
    * @return {!Promise<?Object>}
    */
-  stopPageLoading() {
+  stopPageLoading () {
     return this._client.send("Page.stopLoading");
   }
 
   /**
    * @desc Stop capturing the current web pages network requests
    */
-  stopCapturingNetwork() {
+  stopCapturingNetwork () {
     this.requestCapturer.stopCapturing();
   }
 
@@ -223,7 +223,7 @@ class PuppeteerCrawler extends EventEmitter {
    * @desc Stop the page loading and stop capturing requests
    * @return {!Promise<?Object>}
    */
-  stop() {
+  stop () {
     this.requestCapturer.stopCapturing();
     return this._client.send("Page.stopLoading");
   }
@@ -232,7 +232,7 @@ class PuppeteerCrawler extends EventEmitter {
    * @desc Stop crawling and exit
    * @return {Promise<void>}
    */
-  async shutdown() {
+  async shutdown () {
     this.requestCapturer.stopCapturing();
     if (this.options.warc.appending) {
       await this.writeWRPlayerPagesRecord();
@@ -246,7 +246,7 @@ class PuppeteerCrawler extends EventEmitter {
    * @param {Object} [options] - WARC Creation options
    * @return {Promise<void>} A Promise that resolves once the `warc-gen-finished` event is emitted
    */
-  initWARC(warcPath, options) {
+  initWARC (warcPath, options) {
     this._warcGenerator.initWARC(warcPath, options);
     return new Promise(resolve => {
       this.on("warc-gen-finished", resolve);
@@ -260,7 +260,7 @@ class PuppeteerCrawler extends EventEmitter {
    * @property {?Object} info     - Information for the WARC info record
    * @return {Promise<void, Error>}
    */
-  genWARC(warcInfo) {
+  genWARC (warcInfo) {
     return this.genWarc(warcInfo);
   }
 
@@ -271,14 +271,14 @@ class PuppeteerCrawler extends EventEmitter {
    * @property {?Object} info     - Information for the WARC info record
    * @return {Promise<void, Error>}
    */
-  async genWarc({ outlinks, info }) {
+  async genWarc ({ outlinks, info }) {
     info = info || {};
     info.isPartOfV = info.isPartOfV || this.options.versionInfo.isPartOfV;
     info.warcInfoDescription =
       info.warcInfoDescription || this.options.versionInfo.warcInfoDescription;
     await this._warcGenerator.writeWarcInfoRecord({
-      "isPartOf": info.isPartOfV,
-      "description": info.warcInfoDescription,
+      isPartOf: info.isPartOfV,
+      description: info.warcInfoDescription,
       "http-header-user-agent": this._ua
     });
     await this._warcGenerator.writeWarcMetadata(this._currentUrl, outlinks);
@@ -293,7 +293,7 @@ class PuppeteerCrawler extends EventEmitter {
     this._warcGenerator.end();
   }
 
-  genWARCForPage(outlinks) {
+  genWARCForPage (outlinks) {
     /**
      *
      * @type {{warcOpts: {warcPath: string, appending: boolean, gzip: boolean}, metadata: {targetURI: string, content: string}, pages: ?string, winfo: ?Object}}
@@ -314,7 +314,10 @@ class PuppeteerCrawler extends EventEmitter {
     }
     const defaultWinfo = { "http-header-user-agent": this._ua };
     if (this.options.warc.winfo) {
-      (opts as any).winfo = Object.assign(defaultWinfo, this.options.warc.winfo);
+      (opts as any).winfo = Object.assign(
+        defaultWinfo,
+        this.options.warc.winfo
+      );
     } else {
       (opts as any).winfo = defaultWinfo;
     }
@@ -326,7 +329,7 @@ class PuppeteerCrawler extends EventEmitter {
     );
   }
 
-  async writeWRPlayerPagesRecord() {
+  async writeWRPlayerPagesRecord () {
     this._warcGenerator.initWARC(this._warcNamingFN(this._currentUrl), {
       appending: true
     });
@@ -342,7 +345,7 @@ class PuppeteerCrawler extends EventEmitter {
    * @desc Retrieve the page's meta information
    * @return {Promise<{outlinks: string, links: Array<{href: string, pathname: string, host: string}>, location: string}, Error>}
    */
-  async getOutLinks() {
+  async getOutLinks () {
     const frames = this._page.frames();
     let i = frames.length;
     let frame;
@@ -367,7 +370,7 @@ class PuppeteerCrawler extends EventEmitter {
    * @desc Retrieve the browsers user-agent string
    * @return {!Promise<string>}
    */
-  async getUserAgent() {
+  async getUserAgent () {
     let ua = await this._browser.userAgent();
     if (ua.indexOf("HeadlessChrome/") !== -1) {
       // We are not a robot, pinkie promise!
@@ -381,7 +384,7 @@ class PuppeteerCrawler extends EventEmitter {
    * @desc Iterate over the captured network requests for the current web page
    * @return {Iterator<CapturedRequest>}
    */
-  [Symbol.iterator]() {
+  [Symbol.iterator] () {
     return this.requestCapturer.values();
   }
 
@@ -390,7 +393,7 @@ class PuppeteerCrawler extends EventEmitter {
    * @param {Error} err - The error to emit
    * @private
    */
-  _onWARCGenError(err) {
+  _onWARCGenError (err) {
     this.emit("error", { type: "warc-gen", err });
   }
 
@@ -398,7 +401,7 @@ class PuppeteerCrawler extends EventEmitter {
    * @desc Listener for warc generator finished
    * @private
    */
-  _onWARCGenFinished() {
+  _onWARCGenFinished () {
     this.emit("warc-gen-finished");
   }
 }

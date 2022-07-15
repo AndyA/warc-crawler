@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import Config from '../config';
+import Config from "../config";
 
 // @ts-expect-error TS(2614): Module '"../config/loader"' has no exported member... Remove this comment to see the full error message
-import { Loader } from '../config/loader';
-import { makeRunnable } from '../utils/promises';
-import chromeRunner from './chromeRunner';
-import puppeteerRunner from './puppeteerRunner';
+import { Loader } from "../config/loader";
+import { makeRunnable } from "../utils/promises";
+import chromeRunner from "./chromeRunner";
+import puppeteerRunner from "./puppeteerRunner";
 
 /**
  * @desc Launch a configured crawl
  * @param {string} configPath - Path to the crawls config file
  * @return {Promise<void>}
  */
-async function runner(configPath) {
+async function runner (configPath) {
   const config = await Loader.load(configPath);
   if (config.chrome.use === "chrome") {
     await chromeRunner(config);

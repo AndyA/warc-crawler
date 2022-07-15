@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import noNaughtJs from './noNaughtyJS';
+import noNaughtJs from "./noNaughtyJS";
 
-import { scrollPage, scrollOnLoad } from './scroll';
-import { initCollectLinks, collect, outLinks } from './collectLinks';
+import { scrollPage, scrollOnLoad } from "./scroll";
+import { initCollectLinks, collect, outLinks } from "./collectLinks";
 
 /**
  * @type {{noNaughtJs: function(): void, scrollPage: scrollPage, scrollOnLoad: scrollOnLoad, initCollectLinks: initCollectLinks, collect: collect, outLinks: outLinks}}

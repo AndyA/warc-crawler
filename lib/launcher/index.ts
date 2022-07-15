@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import ChromeLauncher from './chrome';
+import ChromeLauncher from "./chrome";
 
-import ChromeFinder from './chromeFinder';
-import defaultArgs from './defaultArgs';
-import puppeteer from './puppeteer';
+import ChromeFinder from "./chromeFinder";
+import defaultArgs from "./defaultArgs";
+import puppeteer from "./puppeteer";
 
 /**
  * @type {{ChromeFinder: ChromeFinder, ChromeLauncher: ChromeLauncher, defaultArgs: string[], puppeteer: launch}}

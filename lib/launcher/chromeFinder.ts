@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import cp from 'child_process';
+import cp from "child_process";
 
-import path from 'path';
-import fs from 'fs-extra';
+import path from "path";
+import fs from "fs-extra";
 
 /**
  * @type {RegExp}
@@ -34,7 +34,7 @@ const desktopArgRE = /(^[^ ]+).*/;
  * @param {boolean} [rejectOnError = false]
  * @returns {Promise<string>}
  */
-function exec(someCommand, rejectOnError = false) {
+function exec (someCommand, rejectOnError = false) {
   return new Promise((resolve, reject) => {
     cp.exec(someCommand, { encoding: "utf8" }, (error, stdout, stderr) => {
       if (error && rejectOnError) reject(error);
@@ -47,7 +47,7 @@ function exec(someCommand, rejectOnError = false) {
  * @desc Executes the which command for the supplied executable name
  * @param {string} executable
  */
-function which(executable) {
+function which (executable) {
   return exec(`which ${executable}`);
 }
 
@@ -56,9 +56,11 @@ function which(executable) {
  * @param {string} desktopPath
  * @returns {Promise<string[]>}
  */
-function chromeDesktops(desktopPath) {
+function chromeDesktops (desktopPath) {
   // eslint-disable-next-line
-return exec(`ls ${desktopPath} | grep -E "\/.*\/(google|chrome|chromium)-.*"`).then(results => (results as any).split(nlre));
+  return exec(
+    `ls ${desktopPath} | grep -E "\/.*\/(google|chrome|chromium)-.*"`
+  ).then(results => (results as any).split(nlre));
 }
 
 /**
@@ -66,7 +68,7 @@ return exec(`ls ${desktopPath} | grep -E "\/.*\/(google|chrome|chromium)-.*"`).t
  * @param {string} desktopPath
  * @returns {Promise<string[]>}
  */
-async function desktopExePath(desktopPath) {
+async function desktopExePath (desktopPath) {
   let maybeResults;
   // eslint-disable-next-line
   const patternPipe = `"^Exec=\/.*\/(google|chrome|chromium)-.*" ${desktopPath} | awk -F '=' '{print $2}'`;
@@ -92,7 +94,7 @@ async function desktopExePath(desktopPath) {
  * @param {string} execPath - The executable path to test
  * @returns {Promise<boolean>}
  */
-async function bingo(execPath) {
+async function bingo (execPath) {
   if (!execPath || execPath === "") return false;
   try {
     await fs.access(execPath, fs.constants.X_OK);
@@ -111,7 +113,7 @@ class ChromeFinder {
    * If the env key 'CHROME_PATH' is defined that is returned by default
    * @returns {Promise<string>}
    */
-  static async findChrome() {
+  static async findChrome () {
     if (await bingo(process.env.CHROME_PATH)) {
       return process.env.CHROME_PATH;
     }
@@ -133,7 +135,7 @@ class ChromeFinder {
    * @throws Error - If an acceptable executable was not found
    * @returns {Promise<string>}
    */
-  static async findChromeLinux() {
+  static async findChromeLinux () {
     const execs = [
       "google-chrome-unstable",
       "google-chrome-beta",
@@ -203,7 +205,7 @@ class ChromeFinder {
    * @throws Error - If an acceptable executable was not found
    * @returns {Promise<string>}
    */
-  static async findChromeDarwin() {
+  static async findChromeDarwin () {
     // shamelessly borrowed from chrome-launcher (https://github.com/GoogleChrome/chrome-launcher/blob/master/chrome-finder.ts)
     const suffixes = [
       "/Contents/MacOS/Google Chrome Canary",
@@ -291,12 +293,16 @@ class ChromeFinder {
    * @throws Error - If an acceptable executable was not found
    * @returns {Promise<string>}
    */
-  static async findChromeWindows() {
+  static async findChromeWindows () {
     // shamelessly borrowed from chrome-launcher (https://github.com/GoogleChrome/chrome-launcher/blob/master/chrome-finder.ts)
     const installations = [];
     const suffixes = [
-      `${path.sep}Google${path.sep}Chrome SxS${path.sep}Application${path.sep}chrome.exe`,
-      `${path.sep}Google${path.sep}Chrome${path.sep}Application${path.sep}chrome.exe`
+      `${path.sep}Google${path.sep}Chrome SxS${path.sep}Application${
+        path.sep
+      }chrome.exe`,
+      `${path.sep}Google${path.sep}Chrome${path.sep}Application${
+        path.sep
+      }chrome.exe`
     ];
     const prefixes = [
       process.env.LOCALAPPDATA,

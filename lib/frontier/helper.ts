@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import Path from 'path';
+import Path from "path";
 
-import parseDomain from 'parse-domain';
-import bigExtLookup from '../utils/bigExtLookup';
+import parseDomain from "parse-domain";
+import bigExtLookup from "../utils/bigExtLookup";
 // @ts-expect-error TS(2614): Module '"./modes"' has no exported member 'cmodePO... Remove this comment to see the full error message
-import { cmodePO, cmodePAL, cmodePSD, cmodSite } from './modes';
+import { cmodePO, cmodePAL, cmodePSD, cmodSite } from "./modes";
 
 /**
  * @desc Helper class providing utility functions for in memory frontier implementation {@link Frontier}
@@ -31,7 +31,7 @@ class FrontierHelper {
    * @param {number} depth - The crawls depth
    * @returns {Seed | Seed[]} - The normalized {@link Seed}(s)
    */
-  static normalizeSeeds(seeds, mode, depth = 1) {
+  static normalizeSeeds (seeds, mode, depth = 1) {
     if (Array.isArray(seeds)) {
       return seeds.map(aSeed => {
         if (typeof aSeed === "object") {
@@ -68,7 +68,7 @@ class FrontierHelper {
    * @param {string} mode - The crawl mode
    * @returns {symbol} - The crawl modes internal symbol
    */
-  static crawlModeToSymbol(mode) {
+  static crawlModeToSymbol (mode) {
     if (mode) {
       switch (mode) {
         case "site":
@@ -97,7 +97,7 @@ class FrontierHelper {
    * @param {SeedTracker} tracker - The seed tracker associated with the very first page the chain of pages being visited originated from
    * @returns {boolean}
    */
-  static shouldAddToFrontier(url, curURL, tracker) {
+  static shouldAddToFrontier (url, curURL, tracker) {
     if (tracker.mode === cmodePSD || tracker.mode === cmodSite) {
       return FrontierHelper.shouldAddToFrontierPSD(url, curURL, tracker);
     }
@@ -111,7 +111,7 @@ class FrontierHelper {
    * @param {SeedTracker} tracker - The seed tracker associated with the very first page the chain of pages being visited originated from
    * @returns {boolean}
    */
-  static shouldAddToFrontierPSD(url, curURL, tracker) {
+  static shouldAddToFrontierPSD (url, curURL, tracker) {
     const cDomain = parseDomain(curURL);
     const ext = Path.extname(url.pathname);
     const td = parseDomain(url.host);
@@ -129,7 +129,7 @@ class FrontierHelper {
    * @param {SeedTracker} tracker - The seed tracker associated with the very first page the chain of pages being visited originated from
    * @returns {boolean}
    */
-  static shouldAddToFrontierDefault(url, curURL, tracker) {
+  static shouldAddToFrontierDefault (url, curURL, tracker) {
     const ext = Path.extname(url.pathname);
     if (ext !== "") {
       return !bigExtLookup[ext] && !tracker.seenURL(url.href);

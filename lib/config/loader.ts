@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import path from 'path';
-import { inspect } from 'util';
-import fs from 'fs-extra';
-import yaml from 'js-yaml';
-import untildify from 'untildify';
+import path from "path";
+import { inspect } from "util";
+import fs from "fs-extra";
+import yaml from "js-yaml";
+import untildify from "untildify";
 // @ts-expect-error TS(2614): Module '"../defaults"' has no exported member 'def... Remove this comment to see the full error message
-import { defaultOpts } from '../defaults';
-import cp from '../utils/colorPrinters';
-import FH from '../frontier/helper';
-import uuid from 'uuid/v1';
+import { defaultOpts } from "../defaults";
+import cp from "../utils/colorPrinters";
+import FH from "../frontier/helper";
+import uuid from "uuid/v1";
 
 /**
  * @desc Informs the user that they did not export the correct type of user script
  * @param {any} exposed
  */
-function badExport(exposed) {
+function badExport (exposed) {
   console.log(cp.chalk`{bold.red Squidwarc does not know how to handled the supplied script:
 You supplied a ${typeof exposed}:
     ${inspect(exposed, { depth: null })}}
@@ -44,7 +44,7 @@ You supplied a ${typeof exposed}:
  * @desc Informs the user that they did not export an async function
  * @param {any} notAsyncFn
  */
-function notAsync(notAsyncFn) {
+function notAsync (notAsyncFn) {
   console.log(cp.chalk`{bold.red Squidwarc expects the function exported by user scripts to be async functions
 You supplied:
     ${notAsyncFn.toString()}}`);
@@ -57,7 +57,7 @@ You supplied:
 /**
  * @desc Informs the user that the user script is good
  */
-function usrFNGood() {
+function usrFNGood () {
   console.log(cp.chalk`{bold.green With great power comes great responsibility!}
 {bold.red Squidwarc is not responsible for ill behaved user supplied scripts!}
 `);
@@ -69,7 +69,7 @@ class Loader {
    * @param {string} confPath
    * @return {Promise<Object>}
    */
-  static async load(confPath) {
+  static async load (confPath) {
     const configPath = path.resolve(untildify(confPath));
     const exists = await fs.pathExists(configPath);
     if (!exists) {
@@ -131,7 +131,7 @@ class Loader {
    * @param {string} scriptP - The path to the user script
    * @returns {Promise<UserScript | null>}
    */
-  static async ensureScript(scriptP) {
+  static async ensureScript (scriptP) {
     if (scriptP == null) {
       return null;
     }
@@ -190,7 +190,7 @@ class Loader {
    * @param {number} depth            - The depth of the crawl
    * @return {Promise<Seed | Seed[]>}
    */
-  static async ensureSeeds(seeds, mode, depth) {
+  static async ensureSeeds (seeds, mode, depth) {
     if (!Array.isArray(seeds)) {
       if (typeof seeds !== "string") {
         throw new Error(
